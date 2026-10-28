@@ -16,9 +16,6 @@ import com.example.vecinoszaror.style.VecinosZarorTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        kotlin.concurrent.thread {
-            (application as VecinosZarorApp).database.openHelper.writableDatabase
-        }
         enableEdgeToEdge()
         setContent {
             VecinosZarorTheme {
