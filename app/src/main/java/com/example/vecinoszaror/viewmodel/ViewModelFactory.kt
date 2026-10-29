@@ -1,0 +1,23 @@
+package com.example.vecinoszaror.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.vecinoszaror.VecinosZarorApp
+
+/**
+ * Crea los ViewModels que necesitan los repositorios, tomandolos desde [VecinosZarorApp].
+ * Cada ViewModel nuevo se agrega como un caso más del `when`.
+ */
+class ViewModelFactory(private val app: VecinosZarorApp) : ViewModelProvider.Factory {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = when {
+        modelClass.isAssignableFrom(AuthViewModel::class.java) ->
+            AuthViewModel(app.usuarioRepository, app.rolPermisoRepository) as T
+
+        modelClass.isAssignableFrom(NavigationViewModel::class.java) ->
+            NavigationViewModel() as T
+
+        else -> throw IllegalArgumentException("ViewModel desconocido: ${modelClass.name}")
+    }
+}
