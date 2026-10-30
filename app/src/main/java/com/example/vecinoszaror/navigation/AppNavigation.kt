@@ -20,10 +20,12 @@ import com.example.vecinoszaror.ui.screens.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
 import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
+import com.example.vecinoszaror.ui.screens.reservas.SolicitudReservaScreen
 import com.example.vecinoszaror.ui.utils.TipoPantalla
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
+import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
 
 /**
  * Estructura principal de la app: login
@@ -34,6 +36,7 @@ fun AppNavigation(
     authViewModel: AuthViewModel,
     navigationViewModel: NavigationViewModel,
     reservasViewModel: ReservasViewModel,
+    solicitudReservaViewModel: SolicitudReservaViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -124,7 +127,22 @@ fun AppNavigation(
                     )
                 }
                 composable(Screen.Reservas.route) {
-                    if (sesion != null) ReservasScreen(reservasViewModel, sesion)
+                    if (sesion != null) {
+                        ReservasScreen(
+                            viewModel = reservasViewModel,
+                            sesion = sesion,
+                            onSolicitarReserva = { navigationViewModel.irA(Screen.SolicitudReserva) }
+                        )
+                    }
+                }
+                composable(Screen.SolicitudReserva.route) {
+                    if (sesion != null) {
+                        SolicitudReservaScreen(
+                            viewModel = solicitudReservaViewModel,
+                            sesion = sesion,
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
                 }
                 composable(Screen.Finanzas.route) { FinanzasScreen() }
                 composable(Screen.Informes.route) { InformesScreen() }

@@ -5,12 +5,21 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 private val LOCAL_CHILE = Locale.forLanguageTag("es-CL")
 
 /** Convierte milisegundos a texto */
 fun formatearFechaHora(milisegundos: Long): String =
     SimpleDateFormat("dd-MM-yyyy HH:mm", LOCAL_CHILE).format(Date(milisegundos))
+
+
+fun formatearFechaUtc(milisegundos: Long): String =
+    SimpleDateFormat("dd-MM-yyyy", LOCAL_CHILE).apply{ timeZone = TimeZone.getTimeZone("UTC") }
+        .format(Date(milisegundos))
+
+fun formatearHora(minutosDelDia: Int): String =
+    "%02d:%02d".format(minutosDelDia / 60, minutosDelDia % 60)
 
 
 /** Convierte un monto entero a pesos chilenos */

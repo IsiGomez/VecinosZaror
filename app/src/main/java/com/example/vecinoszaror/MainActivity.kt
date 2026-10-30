@@ -14,6 +14,7 @@ import com.example.vecinoszaror.ui.utils.tipoPantalla
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
+import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
 import com.example.vecinoszaror.viewmodel.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -28,8 +29,12 @@ class MainActivity : ComponentActivity() {
                 val authViewModel: AuthViewModel = viewModel(factory = factory)
                 val navigationViewModel: NavigationViewModel = viewModel(factory = factory)
                 val reservasViewModel: ReservasViewModel = viewModel(factory = factory)
+                val solicitudReservaViewModel: SolicitudReservaViewModel = viewModel(factory = factory)
                 val tipoPantalla = calculateWindowSizeClass(this).tipoPantalla()
-                AppNavigation(authViewModel, navigationViewModel, reservasViewModel, tipoPantalla)
+                AppNavigation(
+                    authViewModel, navigationViewModel, reservasViewModel,
+                    solicitudReservaViewModel, tipoPantalla
+                )
             }
         }
     }
