@@ -18,11 +18,12 @@ import com.example.vecinoszaror.ui.screens.AdministracionScreen
 import com.example.vecinoszaror.ui.screens.AvisosScreen
 import com.example.vecinoszaror.ui.screens.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.InformesScreen
-import com.example.vecinoszaror.ui.screens.ReservasScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
+import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
 import com.example.vecinoszaror.ui.utils.TipoPantalla
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
+import com.example.vecinoszaror.viewmodel.ReservasViewModel
 
 /**
  * Estructura principal de la app: login
@@ -32,6 +33,7 @@ import com.example.vecinoszaror.viewmodel.NavigationViewModel
 fun AppNavigation(
     authViewModel: AuthViewModel,
     navigationViewModel: NavigationViewModel,
+    reservasViewModel: ReservasViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -121,7 +123,9 @@ fun AppNavigation(
                         }
                     )
                 }
-                composable(Screen.Reservas.route) { ReservasScreen() }
+                composable(Screen.Reservas.route) {
+                    if (sesion != null) ReservasScreen(reservasViewModel, sesion)
+                }
                 composable(Screen.Finanzas.route) { FinanzasScreen() }
                 composable(Screen.Informes.route) { InformesScreen() }
                 composable(Screen.Avisos.route) { AvisosScreen() }

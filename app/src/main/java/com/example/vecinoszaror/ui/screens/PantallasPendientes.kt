@@ -15,9 +15,6 @@ import androidx.compose.ui.unit.dp
 /** Pantallas de relleno para probar la navegación por rol. */
 
 @Composable
-fun ReservasScreen() = PantallaEnConstruccion("Reservas", "Solicitar, consultar y gestionar reservas.")
-
-@Composable
 fun FinanzasScreen() = PantallaEnConstruccion("Finanzas", "Pagos, gastos y comprobantes.")
 
 @Composable
@@ -53,4 +50,3 @@ private fun PantallaEnConstruccion(titulo: String, descripcion: String) {
         )
     }
 }
-
