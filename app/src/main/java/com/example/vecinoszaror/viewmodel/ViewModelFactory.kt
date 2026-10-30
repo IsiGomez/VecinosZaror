@@ -18,6 +18,9 @@ class ViewModelFactory(private val app: VecinosZarorApp) : ViewModelProvider.Fac
         modelClass.isAssignableFrom(NavigationViewModel::class.java) ->
             NavigationViewModel() as T
 
+        modelClass.isAssignableFrom(ReservasViewModel::class.java) ->
+            ReservasViewModel(app.reservaRepository) as T
+
         else -> throw IllegalArgumentException("ViewModel desconocido: ${modelClass.name}")
     }
 }
