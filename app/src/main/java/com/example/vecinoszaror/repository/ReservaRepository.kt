@@ -97,6 +97,18 @@ class ReservaRepository(private val db: AppDatabase) {
             return@withTransaction false
         }
         reservaDao.actualizarEstado(reservaId, EstadoReserva.CANCELADA, gestionadaPorId, observacion)
+        /** Si cancela la directiva, se le avisa al vecino */
+        if (gestionadaPorId != null && gestionadaPorId != reserva.usuarioId) {
+            notificacionDao.insertar(
+                Notificacion(
+                    usuarioId = reserva.usuarioId,
+                    tipo = TipoNotificacion.GENERAL,
+                    titulo = "Reserva cancelada",
+                    mensaje = observacion ?: "Tu reserva fue cancelada por la Directiva.",
+                    reservaId = reservaId
+                )
+            )
+        }
         true
     }
 }

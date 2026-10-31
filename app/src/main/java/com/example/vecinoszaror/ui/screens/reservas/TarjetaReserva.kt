@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,14 +27,23 @@ import com.example.vecinoszaror.ui.utils.etiqueta
 import com.example.vecinoszaror.ui.utils.formatearFechaHora
 import com.example.vecinoszaror.ui.utils.formatearMonto
 
-/** Solo dibuja, no sabe de ViewModels */
+/**
+ * Solo dibuja, no sabe de ViewModels
+ * Cada botón aparece si el rol puede hacerlo (null = no puede)
+ * y si el estado de la reserva lo permite.
+ */
 @Composable
 fun TarjetaReserva(
     detalle: ReservaConDetalle,
     mostrarSolicitante: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onConfirmar: (() -> Unit)? = null,
+    onRechazar: (() -> Unit)? = null,
+    onCancelar: (() -> Unit)? = null
 ) {
     val reserva = detalle.reserva
+    val pendiente = reserva.estado == EstadoReserva.PENDIENTE
+    val vigente = pendiente || reserva.estado == EstadoReserva.CONFIRMADA
 
     Card(modifier = modifier.fillMaxWidth()) {
         Column(
@@ -62,11 +73,34 @@ fun TarjetaReserva(
                 )
             }
             Text(text = reserva.motivo, style = MaterialTheme.typography.bodyMedium)
+            reserva.observacion?.let { observacion ->
+                Text(
+                    text = "Observación: $observacion",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
             Text(
                 text = "${reserva.numeroAsistentes} asistentes · ${formatearMonto(reserva.montoTotal)}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            if ((vigente && onCancelar != null) || (pendiente && (onRechazar != null || onConfirmar != null))) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    if (onCancelar != null) {
+                        TextButton(onClick = onCancelar) { Text("Cancelar") }
+                    }
+                    if (pendiente && onRechazar != null) {
+                        TextButton(onClick = onRechazar) { Text("Rechazar") }
+                    }
+                    if (pendiente && onConfirmar != null) {
+                        Button(onClick = onConfirmar) { Text("Confirmar") }
+                    }
+                }
+            }
         }
     }
 }
