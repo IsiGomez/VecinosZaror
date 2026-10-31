@@ -109,29 +109,11 @@ fun SolicitudReservaScreen(
             Text("Solicitar reserva", style = MaterialTheme.typography.headlineSmall)
 
             Text("Recinto", style = MaterialTheme.typography.titleSmall)
-            estado.recintos.forEach { recinto ->
-                val seleccionado = estado.recintoId == recinto.id
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .selectable(
-                            selected = seleccionado,
-                            onClick = { viewModel.onRecintoChange(recinto.id) },
-                            role = Role.RadioButton
-                        ),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RadioButton(selected = seleccionado, onClick = null)
-                    Column(modifier = Modifier.padding(start = 8.dp)) {
-                        Text(recinto.nombre, style = MaterialTheme.typography.bodyLarge)
-                        Text(
-                            text = "Capacidad ${recinto.capacidadPersonas} personas · ${formatearMonto(recinto.tarifaBase)}",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-            }
+            SelectorRecinto(
+                recintos = estado.recintos,
+                recintoIdSeleccionado = estado.recintoId,
+                onSeleccionar = viewModel::onRecintoChange
+            )
             TextoError(estado.errores.recinto)
 
             CampoSelector(
@@ -207,7 +189,7 @@ fun SolicitudReservaScreen(
 
 /** Botón que muestra el valor elegido (o "Elegir") y abre una ventana. */
 @Composable
-private fun CampoSelector(
+fun CampoSelector(
     etiqueta: String,
     valor: String?,
     error: String?,
@@ -222,7 +204,7 @@ private fun CampoSelector(
 }
 
 @Composable
-private fun TextoError(mensaje: String?) {
+fun TextoError(mensaje: String?) {
     if (mensaje != null) {
         Text(
             text = mensaje,
@@ -234,7 +216,7 @@ private fun TextoError(mensaje: String?) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DialogoFecha(
+fun DialogoFecha(
     onAceptar: (Long) -> Unit,
     onCancelar: () -> Unit
 ) {

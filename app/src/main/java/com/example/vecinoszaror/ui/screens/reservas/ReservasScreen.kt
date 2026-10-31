@@ -14,6 +14,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -48,7 +49,8 @@ private data class AccionPendiente(val tipo: TipoAccion, val reserva: Reserva)
 fun ReservasScreen(
     viewModel: ReservasViewModel,
     sesion: SesionUsuario,
-    onSolicitarReserva: () -> Unit
+    onSolicitarReserva: () -> Unit,
+    onVerDisponibilidad: () -> Unit
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -84,19 +86,24 @@ fun ReservasScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = if (estado.puedeVerTodas) "Todas las reservas" else "Mis reservas",
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                if (sesion.tienePermiso(Permisos.RESERVA_SOLICITAR)) {
-                    Button(onClick = onSolicitarReserva) { Text("Solicitar") }
+            Text(
+                text = if (estado.puedeVerTodas) "Todas las reservas" else "Mis reservas",
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)
+            )
+            val puedeSolicitar = sesion.tienePermiso(Permisos.RESERVA_SOLICITAR)
+            val puedeVerDisponibilidad = sesion.tienePermiso(Permisos.RESERVA_VERIFICAR_DISPONIBILIDAD)
+            if (puedeSolicitar || puedeVerDisponibilidad) {
+                Row(
+                    modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    if (puedeSolicitar) {
+                        Button(onClick = onSolicitarReserva) { Text("Solicitar") }
+                    }
+                    if (puedeVerDisponibilidad) {
+                        OutlinedButton(onClick = onVerDisponibilidad) { Text("Disponibilidad") }
+                    }
                 }
             }
 

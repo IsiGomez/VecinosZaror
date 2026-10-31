@@ -19,10 +19,13 @@ import com.example.vecinoszaror.ui.screens.AvisosScreen
 import com.example.vecinoszaror.ui.screens.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
+import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
 import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
 import com.example.vecinoszaror.ui.screens.reservas.SolicitudReservaScreen
 import com.example.vecinoszaror.ui.utils.TipoPantalla
+import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.viewmodel.AuthViewModel
+import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
 import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
@@ -37,6 +40,7 @@ fun AppNavigation(
     navigationViewModel: NavigationViewModel,
     reservasViewModel: ReservasViewModel,
     solicitudReservaViewModel: SolicitudReservaViewModel,
+    disponibilidadViewModel: DisponibilidadViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -131,7 +135,16 @@ fun AppNavigation(
                         ReservasScreen(
                             viewModel = reservasViewModel,
                             sesion = sesion,
-                            onSolicitarReserva = { navigationViewModel.irA(Screen.SolicitudReserva) }
+                            onSolicitarReserva = { navigationViewModel.irA(Screen.SolicitudReserva) },
+                            onVerDisponibilidad = { navigationViewModel.irA(Screen.Disponibilidad) }
+                        )
+                    }
+                }
+                composable(Screen.Disponibilidad.route) {
+                    if (sesion != null && sesion.tienePermiso(Permisos.RESERVA_VERIFICAR_DISPONIBILIDAD)) {
+                        DisponibilidadScreen(
+                            viewModel = disponibilidadViewModel,
+                            onVolver = { navigationViewModel.volver() }
                         )
                     }
                 }

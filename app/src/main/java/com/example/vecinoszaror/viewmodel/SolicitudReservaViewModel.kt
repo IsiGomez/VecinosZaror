@@ -8,8 +8,7 @@ import com.example.vecinoszaror.model.SolicitudReservaUiState
 import com.example.vecinoszaror.repository.RecintoRepository
 import com.example.vecinoszaror.repository.ReservaRepository
 import com.example.vecinoszaror.repository.ResultadoSolicitud
-import java.util.Calendar
-import java.util.TimeZone
+import com.example.vecinoszaror.util.combinarFechaYHora
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -156,17 +155,5 @@ class SolicitudReservaViewModel(
 
     private fun mostrarErrorGeneral(mensaje: String) {
         _estado.update { it.copy(enviando = false, errores = it.errores.copy(general = mensaje)) }
-    }
-
-    /** Une el día elegido con una hora. */
-    private fun combinarFechaYHora(fechaUtc: Long, minutosDelDia: Int): Long {
-        val dia = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply { timeInMillis = fechaUtc }
-        return Calendar.getInstance().apply {
-            set(
-                dia.get(Calendar.YEAR), dia.get(Calendar.MONTH), dia.get(Calendar.DAY_OF_MONTH),
-                minutosDelDia / 60, minutosDelDia % 60, 0
-            )
-            set(Calendar.MILLISECOND, 0)
-        }.timeInMillis
     }
 }
