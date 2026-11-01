@@ -15,9 +15,6 @@ import androidx.compose.ui.unit.dp
 /** Pantallas de relleno para probar la navegación por rol. */
 
 @Composable
-fun FinanzasScreen() = PantallaEnConstruccion("Finanzas", "Pagos, gastos y comprobantes.")
-
-@Composable
 fun InformesScreen() = PantallaEnConstruccion("Informes", "Rendiciones de cuentas por período.")
 
 @Composable

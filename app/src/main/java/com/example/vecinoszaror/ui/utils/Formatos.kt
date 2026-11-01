@@ -1,6 +1,8 @@
 package com.example.vecinoszaror.ui.utils
 
+import com.example.vecinoszaror.model.CategoriaGasto
 import com.example.vecinoszaror.model.EstadoReserva
+import com.example.vecinoszaror.model.MetodoPago
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -34,4 +36,24 @@ fun EstadoReserva.etiqueta(): String = when (this) {
     EstadoReserva.RECHAZADA -> "Rechazada"
     EstadoReserva.CANCELADA -> "Cancelada"
     EstadoReserva.FINALIZADA -> "Finalizada"
+}
+
+
+/** Nombre del método de pago para mostrar */
+fun MetodoPago.etiqueta(): String = when (this) {
+    MetodoPago.EFECTIVO -> "Efectivo"
+    MetodoPago.TRANSFERENCIA -> "Transferencia"
+    MetodoPago.OTRO -> "Otro"
+}
+
+
+/** Nombre de la categoría de gasto para mostrar */
+fun CategoriaGasto.etiqueta(): String = when (this) {
+    CategoriaGasto.LUZ -> "Luz"
+    CategoriaGasto.AGUA -> "Agua"
+    CategoriaGasto.GAS -> "Gas"
+    CategoriaGasto.INTERNET -> "Internet"
+    CategoriaGasto.ASEO -> "Aseo"
+    CategoriaGasto.MANTENCION -> "Mantención"
+    CategoriaGasto.OTRO -> "Otro"
 }
