@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +26,8 @@ import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 @Composable
 fun FinanzasScreen(
     viewModel: FinanzasViewModel,
-    sesion: SesionUsuario
+    sesion: SesionUsuario,
+    onRegistrarPago: () -> Unit
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
 
@@ -55,6 +57,10 @@ fun FinanzasScreen(
                     totalGastos = estado.totalGastos,
                     saldo = estado.saldo
                 )
+            }
+
+            if (estado.puedeRegistrarPago) {
+                item { Button(onClick = onRegistrarPago) { Text("Registrar pago") } }
             }
 
             item { Text("Pagos recibidos", style = MaterialTheme.typography.titleMedium) }
