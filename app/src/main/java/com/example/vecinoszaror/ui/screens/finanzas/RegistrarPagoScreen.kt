@@ -1,5 +1,6 @@
 package com.example.vecinoszaror.ui.screens.finanzas
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -66,15 +68,41 @@ fun RegistrarPagoScreen(
         ) {
             Text("Registrar pago", style = MaterialTheme.typography.headlineSmall)
 
-            Text("Reserva", style = MaterialTheme.typography.titleSmall)
             if (estado.reservas.isEmpty()) {
                 Text(
-                    text = "No hay reservas vigentes para registrar pagos.",
+                    text = "No hay reservas con pagos pendientes.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                TextButton(onClick = onVolver, modifier = Modifier.fillMaxWidth()) { Text("Volver") }
+                return@Column
             }
-            estado.reservas.forEach { detalle ->
+
+
+            Text("Reserva", style = MaterialTheme.typography.titleSmall)
+
+            if (estado.recintos.size > 1) {
+                Row(
+                    modifier = Modifier.horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    FilterChip(
+                        selected = estado.filtroRecintoId == null,
+                        onClick = { viewModel.onFiltroRecintoChange(null) },
+                        label = { Text("Todos") }
+                    )
+                    estado.recintos.forEach { recinto ->
+                        FilterChip(
+                            selected = estado.filtroRecintoId == recinto.id,
+                            onClick = { viewModel.onFiltroRecintoChange(recinto.id) },
+                            label = { Text(recinto.nombre) }
+                        )
+                    }
+                }
+            }
+
+            estado.reservasVisibles.forEach { porPagar ->
+                val detalle = porPagar.detalle
                 val reserva = detalle.reserva
                 val seleccionada = estado.reservaId == reserva.id
                 Row(
@@ -94,7 +122,14 @@ fun RegistrarPagoScreen(
                             style = MaterialTheme.typography.bodyLarge
                         )
                         Text(
-                            text = "${formatearFechaHora(reserva.fechaHoraInicio)} · ${formatearMonto(reserva.montoTotal)}",
+                            text = formatearFechaHora(reserva.fechaHoraInicio),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "Total ${formatearMonto(reserva.montoTotal)} · " +
+                                    "Pagado ${formatearMonto(porPagar.pagado)} · " +
+                                    "Pendiente ${formatearMonto(porPagar.pendiente)}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -110,7 +145,16 @@ fun RegistrarPagoScreen(
                 singleLine = true,
                 enabled = !estado.enviando,
                 isError = estado.errores.monto != null,
-                supportingText = { estado.errores.monto?.let { Text(it) } },
+                supportingText = {
+                    val error = estado.errores.monto
+                    if (error != null) {
+                        Text(error)
+                    } else {
+                        if (estado.reservaSeleccionada != null) {
+                            Text("Puedes pagar una parte (abono) o todo lo pendiente")
+                        }
+                    }
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
                 modifier = Modifier.fillMaxWidth()
             )

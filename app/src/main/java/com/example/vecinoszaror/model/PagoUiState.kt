@@ -12,10 +12,24 @@ data class PagoErrores(
         get() = reserva != null || monto != null
 }
 
+
+/** Una reserva con lo que ya se ha pagado de ella. */
+data class ReservaPorPagar(
+    val detalle: ReservaConDetalle,
+    val pagado: Long
+) {
+    /** Lo que falta por pagar. */
+    val pendiente: Long
+        get() = (detalle.reserva.montoTotal - pagado).coerceAtLeast(0)
+}
+
+
 /** Estado del formulario para registrar el pago de una reserva. */
 data class PagoUiState(
-    /** Reservas que se les puede registrar un pago (pendientes o confirmadas). */
-    val reservas: List<ReservaConDetalle> = emptyList(),
+    /** Reservas que tienen un saldo pendiente. */
+    val reservas: List<ReservaPorPagar> = emptyList(),
+    /** null = todos. */
+    val filtroRecintoId: Long? = null,
     val reservaId: Long? = null,
     /** Se convierte a número al validar. */
     val monto: String = "",
@@ -25,4 +39,14 @@ data class PagoUiState(
     val comprobante: Uri? = null,
     val enviando: Boolean = false,
     val errores: PagoErrores = PagoErrores()
-)
+) {
+    val recintos: List<Recinto>
+        get() = reservas.map { it.detalle.recinto }.distinctBy { it.id }
+
+    val reservasVisibles: List<ReservaPorPagar>
+        get() = if (filtroRecintoId == null) reservas else reservas.filter { it.detalle.recinto.id == filtroRecintoId }
+
+    /** La reserva que el usuario eligió, null si no hay ninguna. */
+    val reservaSeleccionada: ReservaPorPagar?
+        get() = reservas.firstOrNull { it.detalle.reserva.id == reservaId }
+}
