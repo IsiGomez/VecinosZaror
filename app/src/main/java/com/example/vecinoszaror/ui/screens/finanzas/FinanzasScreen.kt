@@ -1,6 +1,7 @@
 package com.example.vecinoszaror.ui.screens.finanzas
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +28,8 @@ import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 fun FinanzasScreen(
     viewModel: FinanzasViewModel,
     sesion: SesionUsuario,
-    onRegistrarPago: () -> Unit
+    onRegistrarPago: () -> Unit,
+    onRegistrarGasto: () -> Unit
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
 
@@ -59,8 +61,17 @@ fun FinanzasScreen(
                 )
             }
 
-            if (estado.puedeRegistrarPago) {
-                item { Button(onClick = onRegistrarPago) { Text("Registrar pago") } }
+            if (estado.puedeRegistrarPago || estado.puedeRegistrarGasto) {
+                item {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        if (estado.puedeRegistrarPago) {
+                            Button(onClick = onRegistrarPago) { Text("Registrar pago") }
+                        }
+                        if (estado.puedeRegistrarGasto) {
+                            Button(onClick = onRegistrarGasto) { Text("Registrar gasto") }
+                        }
+                    }
+                }
             }
 
             item { Text("Pagos recibidos", style = MaterialTheme.typography.titleMedium) }

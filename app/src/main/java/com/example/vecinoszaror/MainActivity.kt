@@ -14,6 +14,7 @@ import com.example.vecinoszaror.ui.utils.tipoPantalla
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
+import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
@@ -36,11 +37,12 @@ class MainActivity : ComponentActivity() {
                 val disponibilidadViewModel: DisponibilidadViewModel = viewModel(factory = factory)
                 val finanzasViewModel: FinanzasViewModel = viewModel(factory = factory)
                 val pagoViewModel: PagoViewModel = viewModel(factory = factory)
+                val gastoViewModel: GastoViewModel = viewModel(factory = factory)
                 val tipoPantalla = calculateWindowSizeClass(this).tipoPantalla()
                 AppNavigation(
                     authViewModel, navigationViewModel, reservasViewModel,
                     solicitudReservaViewModel, disponibilidadViewModel, finanzasViewModel,
-                    pagoViewModel, tipoPantalla
+                    pagoViewModel, gastoViewModel, tipoPantalla
                 )
             }
         }

@@ -18,6 +18,7 @@ import com.example.vecinoszaror.ui.screens.AdministracionScreen
 import com.example.vecinoszaror.ui.screens.AvisosScreen
 import com.example.vecinoszaror.ui.screens.InformesScreen
 import com.example.vecinoszaror.ui.screens.finanzas.FinanzasScreen
+import com.example.vecinoszaror.ui.screens.finanzas.RegistrarGastoScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
@@ -28,6 +29,7 @@ import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
+import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
@@ -46,6 +48,7 @@ fun AppNavigation(
     disponibilidadViewModel: DisponibilidadViewModel,
     finanzasViewModel: FinanzasViewModel,
     pagoViewModel: PagoViewModel,
+    gastoViewModel: GastoViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -167,7 +170,8 @@ fun AppNavigation(
                         FinanzasScreen(
                             viewModel = finanzasViewModel,
                             sesion = sesion,
-                            onRegistrarPago = { navigationViewModel.irA(Screen.RegistrarPago) }
+                            onRegistrarPago = { navigationViewModel.irA(Screen.RegistrarPago) },
+                            onRegistrarGasto = { navigationViewModel.irA(Screen.RegistrarGasto) }
                         )
                     }
                 }
@@ -175,6 +179,15 @@ fun AppNavigation(
                     if (sesion != null && sesion.tienePermiso(Permisos.PAGO_REGISTRAR)) {
                         RegistrarPagoScreen(
                             viewModel = pagoViewModel,
+                            sesion = sesion,
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
+                }
+                composable(Screen.RegistrarGasto.route) {
+                    if (sesion != null && sesion.tienePermiso(Permisos.GASTO_REGISTRAR)) {
+                        RegistrarGastoScreen(
+                            viewModel = gastoViewModel,
                             sesion = sesion,
                             onVolver = { navigationViewModel.volver() }
                         )
