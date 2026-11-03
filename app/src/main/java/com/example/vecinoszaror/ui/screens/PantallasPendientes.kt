@@ -18,9 +18,6 @@ import androidx.compose.ui.unit.dp
 fun InformesScreen() = PantallaEnConstruccion("Informes", "Rendiciones de cuentas por período.")
 
 @Composable
-fun AvisosScreen() = PantallaEnConstruccion("Avisos", "Notificaciones de reservas, pagos e informes.")
-
-@Composable
 fun AdministracionScreen() = PantallaEnConstruccion("Administración", "Usuarios, roles, permisos y recintos.")
 
 @Composable

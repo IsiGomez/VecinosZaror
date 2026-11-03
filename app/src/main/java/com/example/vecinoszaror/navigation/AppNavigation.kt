@@ -15,8 +15,8 @@ import com.example.vecinoszaror.ui.components.BarraInferior
 import com.example.vecinoszaror.ui.components.BarraLateral
 import com.example.vecinoszaror.ui.components.BarraSuperior
 import com.example.vecinoszaror.ui.screens.AdministracionScreen
-import com.example.vecinoszaror.ui.screens.AvisosScreen
 import com.example.vecinoszaror.ui.screens.InformesScreen
+import com.example.vecinoszaror.ui.screens.avisos.AvisosScreen
 import com.example.vecinoszaror.ui.screens.finanzas.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarGastoScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
@@ -27,6 +27,7 @@ import com.example.vecinoszaror.ui.screens.reservas.SolicitudReservaScreen
 import com.example.vecinoszaror.ui.utils.TipoPantalla
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.viewmodel.AuthViewModel
+import com.example.vecinoszaror.viewmodel.AvisosViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
@@ -49,6 +50,7 @@ fun AppNavigation(
     finanzasViewModel: FinanzasViewModel,
     pagoViewModel: PagoViewModel,
     gastoViewModel: GastoViewModel,
+    avisosViewModel: AvisosViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -194,7 +196,9 @@ fun AppNavigation(
                     }
                 }
                 composable(Screen.Informes.route) { InformesScreen() }
-                composable(Screen.Avisos.route) { AvisosScreen() }
+                composable(Screen.Avisos.route) {
+                    if (sesion != null) AvisosScreen(viewModel = avisosViewModel, sesion = sesion)
+                }
                 composable(Screen.Administracion.route) { AdministracionScreen() }
             }
         }
