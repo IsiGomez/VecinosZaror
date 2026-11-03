@@ -1,6 +1,5 @@
 package com.example.vecinoszaror.ui.screens.finanzas
 
-import androidx.core.net.toUri
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ListItem
@@ -9,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import com.example.vecinoszaror.model.Gasto
 import com.example.vecinoszaror.model.Pago
 import com.example.vecinoszaror.ui.components.ImagenInteligente
@@ -18,10 +18,12 @@ import com.example.vecinoszaror.ui.utils.formatearMonto
 
 /** Un pago recibido: reserva, fecha, metodo de pago y el monto. */
 @Composable
-fun FilaPago(pago: Pago) {
+fun FilaPago(pago: Pago, nombreRecinto: String?) {
     val comprobante = pago.comprobanteUri
     ListItem(
-        headlineContent = { Text("Pago de la reserva #${pago.reservaId}") },
+        headlineContent = {
+            Text(if (nombreRecinto != null) "$nombreRecinto · reserva #${pago.reservaId}" else "Reserva #${pago.reservaId}")
+        },
         supportingContent = { Text("${formatearFechaHora(pago.fechaPago)} · ${pago.metodo.etiqueta()}") },
         leadingContent = if (comprobante != null) {
             { MiniaturaComprobante(comprobante) }
