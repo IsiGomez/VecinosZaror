@@ -28,8 +28,13 @@ class InformesViewModel(
     fun cargar(sesion: SesionUsuario) {
         tareaEscucha?.cancel()
         val puedePublicar = sesion.tienePermiso(Permisos.INFORME_PUBLICAR)
-        val veBorradores = puedePublicar || sesion.tienePermiso(Permisos.INFORME_GENERAR)
-        _estado.value = InformesUiState(veBorradores = veBorradores, puedePublicar = puedePublicar)
+        val puedeGenerar = sesion.tienePermiso(Permisos.INFORME_GENERAR)
+        val veBorradores = puedePublicar || puedeGenerar
+        _estado.value = InformesUiState(
+            veBorradores = veBorradores,
+            puedePublicar = puedePublicar,
+            puedeGenerar = puedeGenerar
+        )
 
         tareaEscucha = viewModelScope.launch {
             val informes = if (veBorradores) {

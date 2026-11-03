@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vecinoszaror.model.InformeFinanciero
 import com.example.vecinoszaror.model.SesionUsuario
-import com.example.vecinoszaror.ui.utils.formatearFechaUtc
+import com.example.vecinoszaror.ui.utils.formatearFecha
 import com.example.vecinoszaror.ui.utils.formatearMonto
 import com.example.vecinoszaror.viewmodel.InformesViewModel
 
@@ -34,7 +35,8 @@ import com.example.vecinoszaror.viewmodel.InformesViewModel
 @Composable
 fun InformesScreen(
     viewModel: InformesViewModel,
-    sesion: SesionUsuario
+    sesion: SesionUsuario,
+    onGenerarInforme: () -> Unit
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
 
@@ -57,6 +59,10 @@ fun InformesScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             item { Text("Informes", style = MaterialTheme.typography.headlineSmall) }
+
+            if (estado.puedeGenerar) {
+                item { Button(onClick = onGenerarInforme) { Text("Generar informe") } }
+            }
 
             if (estado.informes.isEmpty()) {
                 item {
@@ -95,7 +101,7 @@ private fun TarjetaInforme(
         ) {
             Text(informe.titulo, style = MaterialTheme.typography.titleMedium)
             Text(
-                text = "Período: ${formatearFechaUtc(informe.periodoInicio)} al ${formatearFechaUtc(informe.periodoFin)}",
+                text = "Período: ${formatearFecha(informe.periodoInicio)} al ${formatearFecha(informe.periodoFin)}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
