@@ -15,11 +15,11 @@ import com.example.vecinoszaror.ui.components.BarraInferior
 import com.example.vecinoszaror.ui.components.BarraLateral
 import com.example.vecinoszaror.ui.components.BarraSuperior
 import com.example.vecinoszaror.ui.screens.AdministracionScreen
-import com.example.vecinoszaror.ui.screens.InformesScreen
 import com.example.vecinoszaror.ui.screens.avisos.AvisosScreen
 import com.example.vecinoszaror.ui.screens.finanzas.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarGastoScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
+import com.example.vecinoszaror.ui.screens.informes.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
 import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
@@ -31,6 +31,7 @@ import com.example.vecinoszaror.viewmodel.AvisosViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
+import com.example.vecinoszaror.viewmodel.InformesViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
@@ -51,6 +52,7 @@ fun AppNavigation(
     pagoViewModel: PagoViewModel,
     gastoViewModel: GastoViewModel,
     avisosViewModel: AvisosViewModel,
+    informesViewModel: InformesViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -195,7 +197,9 @@ fun AppNavigation(
                         )
                     }
                 }
-                composable(Screen.Informes.route) { InformesScreen() }
+                composable(Screen.Informes.route) {
+                    if (sesion != null) InformesScreen(viewModel = informesViewModel, sesion = sesion)
+                }
                 composable(Screen.Avisos.route) {
                     if (sesion != null) AvisosScreen(viewModel = avisosViewModel, sesion = sesion)
                 }

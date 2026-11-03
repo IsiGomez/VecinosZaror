@@ -39,6 +39,9 @@ class ViewModelFactory(private val app: VecinosZarorApp) : ViewModelProvider.Fac
         modelClass.isAssignableFrom(AvisosViewModel::class.java) ->
             AvisosViewModel(app.notificacionRepository) as T
 
+        modelClass.isAssignableFrom(InformesViewModel::class.java) ->
+            InformesViewModel(app.finanzasRepository) as T
+
         else -> throw IllegalArgumentException("ViewModel desconocido: ${modelClass.name}")
     }
 }
