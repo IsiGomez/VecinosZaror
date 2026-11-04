@@ -1,5 +1,6 @@
 package com.example.vecinoszaror.ui.screens.informes
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,9 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -27,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vecinoszaror.model.InformeFinanciero
 import com.example.vecinoszaror.model.SesionUsuario
+import com.example.vecinoszaror.ui.components.ContenidoCargando
+import com.example.vecinoszaror.ui.components.EstadoVacio
 import com.example.vecinoszaror.ui.utils.formatearFecha
 import com.example.vecinoszaror.ui.utils.formatearMonto
 import com.example.vecinoszaror.viewmodel.InformesViewModel
@@ -45,41 +49,42 @@ fun InformesScreen(
         viewModel.cargar(sesion)
     }
 
-    if (estado.cargando) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
-        }
-        return
-    }
+    ContenidoCargando(cargando = estado.cargando) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+            LazyColumn(
+                modifier = Modifier.widthIn(max = 700.dp),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                item { Text("Informes", style = MaterialTheme.typography.headlineSmall) }
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-        LazyColumn(
-            modifier = Modifier.widthIn(max = 700.dp),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item { Text("Informes", style = MaterialTheme.typography.headlineSmall) }
-
-            if (estado.puedeGenerar) {
-                item { Button(onClick = onGenerarInforme) { Text("Generar informe") } }
-            }
-
-            if (estado.informes.isEmpty()) {
-                item {
-                    Text(
-                        text = if (estado.veBorradores) "Aún no hay informes." else "Aún no hay informes publicados.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                if (estado.puedeGenerar) {
+                    item { Button(onClick = onGenerarInforme) { Text("Generar informe") } }
                 }
-            } else {
-                items(estado.informes, key = { it.id }) { informe ->
-                    TarjetaInforme(
-                        informe = informe,
-                        mostrarEstado = estado.veBorradores,
-                        puedePublicar = estado.puedePublicar,
-                        onCambiarPublicacion = { viewModel.cambiarPublicacion(informe) }
-                    )
+
+                if (estado.informes.isEmpty()) {
+                    item {
+                        EstadoVacio(
+                            icono = Icons.Filled.Info,
+                            titulo = if (estado.veBorradores) "Aún no hay informes" else "Aún no hay informes publicados",
+                            mensaje = if (estado.veBorradores) {
+                                "Genera el primer informe para rendir cuentas de un período."
+                            } else {
+                                "Cuando la directiva publique una rendición de cuentas, la verás aquí."
+                            }
+                        )
+                    }
+                } else {
+                    items(estado.informes, key = { it.id }) { informe ->
+                        TarjetaInforme(
+                            // animateItem hace que la tarjeta se mueva suave cuando la lista cambia
+                            modifier = Modifier.animateItem(),
+                            informe = informe,
+                            mostrarEstado = estado.veBorradores,
+                            puedePublicar = estado.puedePublicar,
+                            onCambiarPublicacion = { viewModel.cambiarPublicacion(informe) }
+                        )
+                    }
                 }
             }
         }
@@ -89,12 +94,18 @@ fun InformesScreen(
 /** Un informe: período, totales, si corresponde, su estado y el botón para publicarlo. */
 @Composable
 private fun TarjetaInforme(
+    modifier: Modifier = Modifier,
     informe: InformeFinanciero,
     mostrarEstado: Boolean,
     puedePublicar: Boolean,
     onCambiarPublicacion: () -> Unit
 ) {
-    Card(modifier = Modifier.fillMaxWidth()) {
+    val colorEstado by animateColorAsState(
+        targetValue = if (informe.publicado) MaterialTheme.colorScheme.primary
+        else MaterialTheme.colorScheme.onSurfaceVariant,
+        label = "colorEstado"
+    )
+    Card(modifier = modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
