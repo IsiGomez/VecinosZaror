@@ -1,5 +1,8 @@
 package com.example.vecinoszaror.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -130,7 +133,12 @@ fun AppNavigation(
             NavHost(
                 navController = navController,
                 startDestination = Screen.Login.route,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                enterTransition = { fadeIn(tween(durationMillis = 200, delayMillis = 100)) },
+                exitTransition = { fadeOut(tween(durationMillis = 100)) },
+                popEnterTransition = { fadeIn(tween(durationMillis = 200, delayMillis = 100)) },
+                popExitTransition = { fadeOut(tween(durationMillis = 100)) }
+
             ) {
                 composable(Screen.Login.route) {
                     LoginScreen(
