@@ -24,8 +24,13 @@ class InformesViewModel(
     // Tarea que escucha la base, se cancela al cambiar de usuario
     private var tareaEscucha: Job? = null
 
+    // Sesión ya cargada: evita reiniciar la pantalla cada vez que se vuelve a ella
+    private var sesionCargada: SesionUsuario? = null
+
     /** Empieza a observar los informes que le corresponden al rol. */
     fun cargar(sesion: SesionUsuario) {
+        if (sesion == sesionCargada) return
+        sesionCargada = sesion
         tareaEscucha?.cancel()
         val puedePublicar = sesion.tienePermiso(Permisos.INFORME_PUBLICAR)
         val puedeGenerar = sesion.tienePermiso(Permisos.INFORME_GENERAR)

@@ -21,10 +21,15 @@ class AvisosViewModel(
 
     // Tarea que escucha la base, se cancela al cambiar de usuario
     private var tareaEscucha: Job? = null
+
+    // Sesión ya cargada: evita reiniciar la pantalla cada vez que se vuelve a ella
+    private var sesionCargada: SesionUsuario? = null
     private var usuarioId: Long? = null
 
     /** Empieza a observar los avisos de este usuario. */
     fun cargar(sesion: SesionUsuario) {
+        if (sesion == sesionCargada) return
+        sesionCargada = sesion
         tareaEscucha?.cancel()
         usuarioId = sesion.usuario.id
         _estado.value = AvisosUiState(cargando = true)
