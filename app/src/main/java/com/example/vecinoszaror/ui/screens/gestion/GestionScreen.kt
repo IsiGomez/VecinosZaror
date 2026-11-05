@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
+import com.example.vecinoszaror.viewmodel.UsuarioFormularioViewModel
 import com.example.vecinoszaror.viewmodel.UsuariosViewModel
 
 /** Cada pestaña de administración y el permiso que hay que tener para verla. */
@@ -27,8 +28,9 @@ private enum class Seccion(val titulo: String, val permiso: String) {
 
 /** Administración: usuarios, roles / permisos, y recintos. En pestañas. */
 @Composable
-fun AdministracionScreen(
+fun GestionScreen(
     usuariosViewModel: UsuariosViewModel,
+    usuarioFormularioViewModel: UsuarioFormularioViewModel,
     sesion: SesionUsuario
 ) {
     // Solo se muestran las pestañas que el rol tiene permitidas
@@ -56,7 +58,7 @@ fun AdministracionScreen(
         }
 
         when (secciones[actual]) {
-            Seccion.USUARIOS -> UsuariosContenido(usuariosViewModel)
+            Seccion.USUARIOS -> UsuariosContenido(usuariosViewModel, usuarioFormularioViewModel, sesion)
             Seccion.ROLES -> Text("Roles y permisos: en construcción", modifier = Modifier.padding(16.dp))
             Seccion.RECINTOS -> Text("Recintos: en construcción", modifier = Modifier.padding(16.dp))
         }
