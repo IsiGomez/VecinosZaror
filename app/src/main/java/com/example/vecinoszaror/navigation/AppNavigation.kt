@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.vecinoszaror.ui.components.BarraInferior
 import com.example.vecinoszaror.ui.components.BarraLateral
 import com.example.vecinoszaror.ui.components.BarraSuperior
-import com.example.vecinoszaror.ui.screens.AdministracionScreen
+import com.example.vecinoszaror.ui.screens.gestion.AdministracionScreen
 import com.example.vecinoszaror.ui.screens.avisos.AvisosScreen
 import com.example.vecinoszaror.ui.screens.finanzas.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarGastoScreen
@@ -41,6 +41,7 @@ import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
 import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
+import com.example.vecinoszaror.viewmodel.UsuariosViewModel
 
 /**
  * Estructura principal de la app: login
@@ -59,6 +60,7 @@ fun AppNavigation(
     avisosViewModel: AvisosViewModel,
     informesViewModel: InformesViewModel,
     generarInformeViewModel: GenerarInformeViewModel,
+    usuariosViewModel: UsuariosViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -229,7 +231,11 @@ fun AppNavigation(
                 composable(Screen.Avisos.route) {
                     if (sesion != null) AvisosScreen(viewModel = avisosViewModel, sesion = sesion)
                 }
-                composable(Screen.Administracion.route) { AdministracionScreen() }
+                composable(Screen.Administracion.route) {
+                    if (sesion != null) {
+                        AdministracionScreen(usuariosViewModel = usuariosViewModel, sesion = sesion)
+                    }
+                }
             }
         }
     }
