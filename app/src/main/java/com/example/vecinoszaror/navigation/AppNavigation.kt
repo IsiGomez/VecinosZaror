@@ -236,7 +236,7 @@ fun AppNavigation(
                 composable(Screen.Avisos.route) {
                     if (sesion != null) AvisosScreen(viewModel = avisosViewModel, sesion = sesion)
                 }
-                composable(Screen.Administracion.route) {
+                composable(Screen.Gestion.route) {
                     if (sesion != null) {
                         GestionScreen(
                             usuariosViewModel = usuariosViewModel,

@@ -44,6 +44,6 @@ fun opcionesDeMenu(permisos: Set<String>): List<OpcionMenu> = buildList {
     add(OpcionMenu(Screen.Avisos, "Avisos", Icons.Filled.Notifications))
 
     if (Permisos.USUARIO_GESTIONAR in permisos) {
-        add(OpcionMenu(Screen.Administracion, "Gestión", Icons.Filled.Settings))
+        add(OpcionMenu(Screen.Gestion, "Gestión", Icons.Filled.Settings))
     }
 }

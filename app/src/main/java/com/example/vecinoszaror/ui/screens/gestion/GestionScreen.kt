@@ -28,7 +28,7 @@ private enum class Seccion(val titulo: String, val permiso: String) {
     RECINTOS("Recintos", Permisos.RECINTO_GESTIONAR)
 }
 
-/** Administración: usuarios, roles / permisos, y recintos. En pestañas. */
+/** Gestión: usuarios, roles / permisos, y recintos. En pestañas. */
 @Composable
 fun GestionScreen(
     usuariosViewModel: UsuariosViewModel,
