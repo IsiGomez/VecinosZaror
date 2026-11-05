@@ -1,5 +1,8 @@
 package com.example.vecinoszaror.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -15,11 +18,12 @@ import com.example.vecinoszaror.ui.components.BarraInferior
 import com.example.vecinoszaror.ui.components.BarraLateral
 import com.example.vecinoszaror.ui.components.BarraSuperior
 import com.example.vecinoszaror.ui.screens.AdministracionScreen
-import com.example.vecinoszaror.ui.screens.AvisosScreen
-import com.example.vecinoszaror.ui.screens.InformesScreen
+import com.example.vecinoszaror.ui.screens.avisos.AvisosScreen
 import com.example.vecinoszaror.ui.screens.finanzas.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarGastoScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
+import com.example.vecinoszaror.ui.screens.informes.GenerarInformeScreen
+import com.example.vecinoszaror.ui.screens.informes.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
 import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
@@ -27,9 +31,12 @@ import com.example.vecinoszaror.ui.screens.reservas.SolicitudReservaScreen
 import com.example.vecinoszaror.ui.utils.TipoPantalla
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.viewmodel.AuthViewModel
+import com.example.vecinoszaror.viewmodel.AvisosViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
+import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
+import com.example.vecinoszaror.viewmodel.InformesViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
@@ -49,6 +56,9 @@ fun AppNavigation(
     finanzasViewModel: FinanzasViewModel,
     pagoViewModel: PagoViewModel,
     gastoViewModel: GastoViewModel,
+    avisosViewModel: AvisosViewModel,
+    informesViewModel: InformesViewModel,
+    generarInformeViewModel: GenerarInformeViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -123,7 +133,12 @@ fun AppNavigation(
             NavHost(
                 navController = navController,
                 startDestination = Screen.Login.route,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                enterTransition = { fadeIn(tween(durationMillis = 200, delayMillis = 100)) },
+                exitTransition = { fadeOut(tween(durationMillis = 100)) },
+                popEnterTransition = { fadeIn(tween(durationMillis = 200, delayMillis = 100)) },
+                popExitTransition = { fadeOut(tween(durationMillis = 100)) }
+
             ) {
                 composable(Screen.Login.route) {
                     LoginScreen(
@@ -193,8 +208,27 @@ fun AppNavigation(
                         )
                     }
                 }
-                composable(Screen.Informes.route) { InformesScreen() }
-                composable(Screen.Avisos.route) { AvisosScreen() }
+                composable(Screen.Informes.route) {
+                    if (sesion != null) {
+                        InformesScreen(
+                            viewModel = informesViewModel,
+                            sesion = sesion,
+                            onGenerarInforme = { navigationViewModel.irA(Screen.GenerarInforme) }
+                        )
+                    }
+                }
+                composable(Screen.GenerarInforme.route) {
+                    if (sesion != null && sesion.tienePermiso(Permisos.INFORME_GENERAR)) {
+                        GenerarInformeScreen(
+                            viewModel = generarInformeViewModel,
+                            sesion = sesion,
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
+                }
+                composable(Screen.Avisos.route) {
+                    if (sesion != null) AvisosScreen(viewModel = avisosViewModel, sesion = sesion)
+                }
                 composable(Screen.Administracion.route) { AdministracionScreen() }
             }
         }

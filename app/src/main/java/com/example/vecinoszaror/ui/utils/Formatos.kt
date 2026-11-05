@@ -15,11 +15,16 @@ private val LOCAL_CHILE = Locale.forLanguageTag("es-CL")
 fun formatearFechaHora(milisegundos: Long): String =
     SimpleDateFormat("dd-MM-yyyy HH:mm", LOCAL_CHILE).format(Date(milisegundos))
 
+/** Convierte milisegundos a texto, solo la fecha en hora local */
+fun formatearFecha(milisegundos: Long): String =
+    SimpleDateFormat("dd-MM-yyyy", LOCAL_CHILE).format(Date(milisegundos))
 
+/** Convierte el día del calendario (que viene en UTC) a texto */
 fun formatearFechaUtc(milisegundos: Long): String =
     SimpleDateFormat("dd-MM-yyyy", LOCAL_CHILE).apply{ timeZone = TimeZone.getTimeZone("UTC") }
         .format(Date(milisegundos))
 
+/** Convierte minutos desde la medianoche a hora */
 fun formatearHora(minutosDelDia: Int): String =
     "%02d:%02d".format(minutosDelDia / 60, minutosDelDia % 60)
 

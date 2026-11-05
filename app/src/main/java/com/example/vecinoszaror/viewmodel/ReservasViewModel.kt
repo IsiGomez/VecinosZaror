@@ -31,8 +31,13 @@ class ReservasViewModel (
     /** Escucha la base, se cancela al cambiar de usuario */
     private var tareaEscucha: Job? = null
 
+    // Sesión ya cargada: evita reiniciar la pantalla cada vez que se vuelve a ella
+    private var sesionCargada: SesionUsuario? = null
+
     /** Las reservas que corresponden a la sesión */
     fun cargar(sesion: SesionUsuario) {
+        if (sesion == sesionCargada) return
+        sesionCargada = sesion
         tareaEscucha?.cancel()
         val puedeVerTodas = sesion.tienePermiso(Permisos.RESERVA_VER_TODAS)
         _estado.value = ReservasUiState(cargando = true, puedeVerTodas = puedeVerTodas)

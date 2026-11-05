@@ -30,6 +30,9 @@ class FinanzasViewModel(
     // Tarea que escucha la base, se cancela al cambiar de usuario
     private var tareaEscucha: Job? = null
 
+    // Sesión ya cargada: evita reiniciar la pantalla cada vez que se vuelve a ella
+    private var sesionCargada: SesionUsuario? = null
+
     /** Agrupa lo que entregan los flujos, para actualizar el estado de una sola vez. */
     private data class Datos(
         val pagos: List<Pago>,
@@ -41,6 +44,8 @@ class FinanzasViewModel(
 
     /** Empieza a observar las finanzas y deja anotado qué acciones permite el rol. */
     fun cargar(sesion: SesionUsuario) {
+        if (sesion == sesionCargada) return
+        sesionCargada = sesion
         tareaEscucha?.cancel()
         _estado.value = FinanzasUiState(
             cargando = true,
