@@ -51,6 +51,12 @@ class ViewModelFactory(private val app: VecinosZarorApp) : ViewModelProvider.Fac
         modelClass.isAssignableFrom(UsuarioFormularioViewModel::class.java) ->
             UsuarioFormularioViewModel(app.usuarioRepository, app.rolPermisoRepository) as T
 
+        modelClass.isAssignableFrom(RecintosViewModel::class.java) ->
+            RecintosViewModel(app.recintoRepository) as T
+
+        modelClass.isAssignableFrom(RecintoFormularioViewModel::class.java) ->
+            RecintoFormularioViewModel(app.recintoRepository) as T
+
         else -> throw IllegalArgumentException("ViewModel desconocido: ${modelClass.name}")
     }
 }

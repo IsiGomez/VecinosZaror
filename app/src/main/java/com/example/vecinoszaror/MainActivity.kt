@@ -20,6 +20,8 @@ import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.InformesViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
+import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
+import com.example.vecinoszaror.viewmodel.RecintosViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
 import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
 import com.example.vecinoszaror.viewmodel.UsuarioFormularioViewModel
@@ -48,13 +50,16 @@ class MainActivity : ComponentActivity() {
                 val generarInformeViewModel: GenerarInformeViewModel = viewModel(factory = factory)
                 val usuariosViewModel: UsuariosViewModel = viewModel(factory = factory)
                 val usuarioFormularioViewModel: UsuarioFormularioViewModel = viewModel(factory = factory)
+                val recintosViewModel: RecintosViewModel = viewModel(factory = factory)
+                val recintoFormularioViewModel: RecintoFormularioViewModel = viewModel(factory = factory)
                 val tipoPantalla = calculateWindowSizeClass(this).tipoPantalla()
                 AppNavigation(
                     authViewModel, navigationViewModel, reservasViewModel,
                     solicitudReservaViewModel, disponibilidadViewModel, finanzasViewModel,
                     pagoViewModel, gastoViewModel, avisosViewModel, informesViewModel,
                     generarInformeViewModel, usuariosViewModel,
-                    usuarioFormularioViewModel, tipoPantalla
+                    usuarioFormularioViewModel, recintosViewModel, recintoFormularioViewModel,
+                    tipoPantalla
                 )
             }
         }

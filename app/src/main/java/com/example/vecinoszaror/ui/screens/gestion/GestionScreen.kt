@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
+import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
+import com.example.vecinoszaror.viewmodel.RecintosViewModel
 import com.example.vecinoszaror.viewmodel.UsuarioFormularioViewModel
 import com.example.vecinoszaror.viewmodel.UsuariosViewModel
 
@@ -31,6 +33,8 @@ private enum class Seccion(val titulo: String, val permiso: String) {
 fun GestionScreen(
     usuariosViewModel: UsuariosViewModel,
     usuarioFormularioViewModel: UsuarioFormularioViewModel,
+    recintosViewModel: RecintosViewModel,
+    recintoFormularioViewModel: RecintoFormularioViewModel,
     sesion: SesionUsuario
 ) {
     // Solo se muestran las pestañas que el rol tiene permitidas
@@ -60,7 +64,7 @@ fun GestionScreen(
         when (secciones[actual]) {
             Seccion.USUARIOS -> UsuariosContenido(usuariosViewModel, usuarioFormularioViewModel, sesion)
             Seccion.ROLES -> Text("Roles y permisos: en construcción", modifier = Modifier.padding(16.dp))
-            Seccion.RECINTOS -> Text("Recintos: en construcción", modifier = Modifier.padding(16.dp))
+            Seccion.RECINTOS -> RecintosContenido(recintosViewModel, recintoFormularioViewModel, sesion)
         }
     }
 }
