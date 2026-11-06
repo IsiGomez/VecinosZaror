@@ -42,6 +42,7 @@ import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
 import com.example.vecinoszaror.viewmodel.RecintosViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
+import com.example.vecinoszaror.viewmodel.RolesViewModel
 import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
 import com.example.vecinoszaror.viewmodel.UsuarioFormularioViewModel
 import com.example.vecinoszaror.viewmodel.UsuariosViewModel
@@ -67,6 +68,7 @@ fun AppNavigation(
     usuarioFormularioViewModel: UsuarioFormularioViewModel,
     recintosViewModel: RecintosViewModel,
     recintoFormularioViewModel: RecintoFormularioViewModel,
+    rolesViewModel: RolesViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -243,6 +245,7 @@ fun AppNavigation(
                             usuarioFormularioViewModel = usuarioFormularioViewModel,
                             recintosViewModel = recintosViewModel,
                             recintoFormularioViewModel = recintoFormularioViewModel,
+                            rolesViewModel = rolesViewModel,
                             sesion = sesion
                         )
                     }

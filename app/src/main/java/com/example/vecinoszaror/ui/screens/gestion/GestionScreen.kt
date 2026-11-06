@@ -18,6 +18,7 @@ import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
 import com.example.vecinoszaror.viewmodel.RecintosViewModel
+import com.example.vecinoszaror.viewmodel.RolesViewModel
 import com.example.vecinoszaror.viewmodel.UsuarioFormularioViewModel
 import com.example.vecinoszaror.viewmodel.UsuariosViewModel
 
@@ -35,6 +36,7 @@ fun GestionScreen(
     usuarioFormularioViewModel: UsuarioFormularioViewModel,
     recintosViewModel: RecintosViewModel,
     recintoFormularioViewModel: RecintoFormularioViewModel,
+    rolesViewModel: RolesViewModel,
     sesion: SesionUsuario
 ) {
     // Solo se muestran las pestañas que el rol tiene permitidas
@@ -63,7 +65,7 @@ fun GestionScreen(
 
         when (secciones[actual]) {
             Seccion.USUARIOS -> UsuariosContenido(usuariosViewModel, usuarioFormularioViewModel, sesion)
-            Seccion.ROLES -> Text("Roles y permisos: en construcción", modifier = Modifier.padding(16.dp))
+            Seccion.ROLES -> RolesContenido(rolesViewModel, sesion)
             Seccion.RECINTOS -> RecintosContenido(recintosViewModel, recintoFormularioViewModel, sesion)
         }
     }

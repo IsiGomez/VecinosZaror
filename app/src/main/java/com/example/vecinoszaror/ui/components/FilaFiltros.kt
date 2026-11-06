@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 
 /**
  * Fila para filtrar una lista: "Todos" más una opción por cada elemento de [opciones].
+ * Con [mostrarTodos] en false no se dibuja la opción "Todos" (cuando siempre debe haber una elegida).
  * Sirve para cualquier tipo [T] (recintos, categorías...): [textoDe] dice cómo escribir cada opción.
  * Avisa con [onSeleccionar]; null significa "Todos".
  */
@@ -21,17 +22,20 @@ fun <T> FilaFiltros(
     seleccionada: T?,
     textoDe: (T) -> String,
     onSeleccionar: (T?) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    mostrarTodos: Boolean = true
 ) {
     Row(
         modifier = modifier.horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        FilterChip(
-            selected = seleccionada == null,
-            onClick = { onSeleccionar(null) },
-            label = { Text("Todos") }
-        )
+        if (mostrarTodos) {
+            FilterChip(
+                selected = seleccionada == null,
+                onClick = { onSeleccionar(null) },
+                label = { Text("Todos") }
+            )
+        }
         opciones.forEach { opcion ->
             FilterChip(
                 selected = seleccionada == opcion,

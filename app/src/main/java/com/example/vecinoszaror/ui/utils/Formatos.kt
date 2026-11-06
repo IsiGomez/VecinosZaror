@@ -73,3 +73,12 @@ fun Rol.etiqueta(): String = when (nombre) {
     "DIRECTIVA" -> "Directiva"
     else -> nombre
 }
+
+/** Nombre del módulo de un permiso para mostrar. */
+fun etiquetaModulo(modulo: String): String = when (modulo) {
+    "RESERVAS" -> "Reservas"
+    "FINANZAS" -> "Finanzas"
+    "INFORMES" -> "Informes"
+    "ADMINISTRACION" -> "Administración"
+    else -> modulo
+}
