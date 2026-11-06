@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.vecinoszaror.ui.components.BarraInferior
 import com.example.vecinoszaror.ui.components.BarraLateral
 import com.example.vecinoszaror.ui.components.BarraSuperior
-import com.example.vecinoszaror.ui.screens.AdministracionScreen
+import com.example.vecinoszaror.ui.screens.gestion.GestionScreen
 import com.example.vecinoszaror.ui.screens.avisos.AvisosScreen
 import com.example.vecinoszaror.ui.screens.finanzas.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarGastoScreen
@@ -39,8 +39,13 @@ import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
 import com.example.vecinoszaror.viewmodel.InformesViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
+import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
+import com.example.vecinoszaror.viewmodel.RecintosViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
+import com.example.vecinoszaror.viewmodel.RolesViewModel
 import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
+import com.example.vecinoszaror.viewmodel.UsuarioFormularioViewModel
+import com.example.vecinoszaror.viewmodel.UsuariosViewModel
 
 /**
  * Estructura principal de la app: login
@@ -59,6 +64,11 @@ fun AppNavigation(
     avisosViewModel: AvisosViewModel,
     informesViewModel: InformesViewModel,
     generarInformeViewModel: GenerarInformeViewModel,
+    usuariosViewModel: UsuariosViewModel,
+    usuarioFormularioViewModel: UsuarioFormularioViewModel,
+    recintosViewModel: RecintosViewModel,
+    recintoFormularioViewModel: RecintoFormularioViewModel,
+    rolesViewModel: RolesViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -138,7 +148,6 @@ fun AppNavigation(
                 exitTransition = { fadeOut(tween(durationMillis = 100)) },
                 popEnterTransition = { fadeIn(tween(durationMillis = 200, delayMillis = 100)) },
                 popExitTransition = { fadeOut(tween(durationMillis = 100)) }
-
             ) {
                 composable(Screen.Login.route) {
                     LoginScreen(
@@ -229,7 +238,18 @@ fun AppNavigation(
                 composable(Screen.Avisos.route) {
                     if (sesion != null) AvisosScreen(viewModel = avisosViewModel, sesion = sesion)
                 }
-                composable(Screen.Administracion.route) { AdministracionScreen() }
+                composable(Screen.Gestion.route) {
+                    if (sesion != null) {
+                        GestionScreen(
+                            usuariosViewModel = usuariosViewModel,
+                            usuarioFormularioViewModel = usuarioFormularioViewModel,
+                            recintosViewModel = recintosViewModel,
+                            recintoFormularioViewModel = recintoFormularioViewModel,
+                            rolesViewModel = rolesViewModel,
+                            sesion = sesion
+                        )
+                    }
+                }
             }
         }
     }

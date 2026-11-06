@@ -20,8 +20,13 @@ import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.InformesViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
+import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
+import com.example.vecinoszaror.viewmodel.RecintosViewModel
 import com.example.vecinoszaror.viewmodel.ReservasViewModel
+import com.example.vecinoszaror.viewmodel.RolesViewModel
 import com.example.vecinoszaror.viewmodel.SolicitudReservaViewModel
+import com.example.vecinoszaror.viewmodel.UsuarioFormularioViewModel
+import com.example.vecinoszaror.viewmodel.UsuariosViewModel
 import com.example.vecinoszaror.viewmodel.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -44,12 +49,19 @@ class MainActivity : ComponentActivity() {
                 val avisosViewModel: AvisosViewModel = viewModel(factory = factory)
                 val informesViewModel: InformesViewModel = viewModel(factory = factory)
                 val generarInformeViewModel: GenerarInformeViewModel = viewModel(factory = factory)
+                val usuariosViewModel: UsuariosViewModel = viewModel(factory = factory)
+                val usuarioFormularioViewModel: UsuarioFormularioViewModel = viewModel(factory = factory)
+                val recintosViewModel: RecintosViewModel = viewModel(factory = factory)
+                val recintoFormularioViewModel: RecintoFormularioViewModel = viewModel(factory = factory)
+                val rolesViewModel: RolesViewModel = viewModel(factory = factory)
                 val tipoPantalla = calculateWindowSizeClass(this).tipoPantalla()
                 AppNavigation(
                     authViewModel, navigationViewModel, reservasViewModel,
                     solicitudReservaViewModel, disponibilidadViewModel, finanzasViewModel,
                     pagoViewModel, gastoViewModel, avisosViewModel, informesViewModel,
-                    generarInformeViewModel, tipoPantalla
+                    generarInformeViewModel, usuariosViewModel,
+                    usuarioFormularioViewModel, recintosViewModel, recintoFormularioViewModel,
+                    rolesViewModel, tipoPantalla
                 )
             }
         }

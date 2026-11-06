@@ -3,6 +3,7 @@ package com.example.vecinoszaror.ui.utils
 import com.example.vecinoszaror.model.CategoriaGasto
 import com.example.vecinoszaror.model.EstadoReserva
 import com.example.vecinoszaror.model.MetodoPago
+import com.example.vecinoszaror.model.Rol
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -61,4 +62,23 @@ fun CategoriaGasto.etiqueta(): String = when (this) {
     CategoriaGasto.ASEO -> "Aseo"
     CategoriaGasto.MANTENCION -> "Mantención"
     CategoriaGasto.OTRO -> "Otro"
+}
+
+
+/** Nombre del rol para mostrar. */
+fun Rol.etiqueta(): String = when (nombre) {
+    "VECINO" -> "Vecino/a"
+    "SECRETARIA" -> "Secretaría"
+    "TESORERIA" -> "Tesorería"
+    "DIRECTIVA" -> "Directiva"
+    else -> nombre
+}
+
+/** Nombre del módulo de un permiso para mostrar. */
+fun etiquetaModulo(modulo: String): String = when (modulo) {
+    "RESERVAS" -> "Reservas"
+    "FINANZAS" -> "Finanzas"
+    "INFORMES" -> "Informes"
+    "ADMINISTRACION" -> "Administración"
+    else -> modulo
 }

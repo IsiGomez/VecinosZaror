@@ -1,5 +1,6 @@
 package com.example.vecinoszaror.repository
 
+import android.database.sqlite.SQLiteConstraintException
 import com.example.vecinoszaror.database.dao.RecintoDao
 import com.example.vecinoszaror.model.Recinto
 import kotlinx.coroutines.flow.Flow
@@ -16,5 +17,13 @@ class RecintoRepository(private val recintoDao: RecintoDao) {
     suspend fun crear(recinto: Recinto): Long? =
         recintoDao.insertar(recinto).takeIf { it != -1L }
 
-    suspend fun actualizar(recinto: Recinto) = recintoDao.actualizar(recinto)
+    /** Guarda los cambios de un recinto. Devuelve false si el nombre ya lo usa otro recinto. */
+    suspend fun editar(recinto: Recinto): Boolean = try {
+        recintoDao.actualizar(recinto)
+        true
+    } catch (e: SQLiteConstraintException) {
+        // El nombre es único
+        false
+    }
+
 }

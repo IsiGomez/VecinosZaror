@@ -1,5 +1,6 @@
 package com.example.vecinoszaror.repository
 
+import android.database.sqlite.SQLiteConstraintException
 import com.example.vecinoszaror.database.dao.UsuarioDao
 import com.example.vecinoszaror.model.Usuario
 import com.example.vecinoszaror.model.UsuarioConRol
@@ -37,7 +38,29 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
         )
     ).takeIf { it != -1L }
 
-    suspend fun actualizar(usuario: Usuario) = usuarioDao.actualizar(usuario)
+    suspend fun obtenerPorId(id: Long): Usuario? = usuarioDao.obtenerPorId(id)
+
+    /**
+     * Guarda los cambios de un usuario. Si [nuevaClave] no es null, también cambia su clave.
+     * Devuelve false si el correo ya lo usa otra persona.
+     */
+    suspend fun editar(usuario: Usuario, nuevaClave: String?): Boolean {
+        val actualizado = usuario.copy(
+            nombre = usuario.nombre.trim(),
+            apellido = usuario.apellido.trim(),
+            email = usuario.email.trim().lowercase(),
+            telefono = usuario.telefono?.trim(),
+            claveHash = if (nuevaClave != null) hashClave(nuevaClave) else usuario.claveHash
+        )
+        return try {
+            usuarioDao.actualizar(actualizado)
+            true
+        } catch (e: SQLiteConstraintException) {
+            // El correo es único
+            false
+        }
+    }
+
 
     private fun hashClave(clave: String): String =
         MessageDigest.getInstance("SHA-256")
