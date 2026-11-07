@@ -1,12 +1,18 @@
 package com.example.vecinoszaror.ui.components
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -15,6 +21,15 @@ fun BarraSuperior(
     rol: String,
     onCerrarSesion: () -> Unit
 ) {
+    val vista = LocalView.current
+    DisposableEffect(vista) {
+        val controlador = WindowCompat.getInsetsController((vista.context as Activity).window, vista)
+        controlador.isAppearanceLightStatusBars = false
+        onDispose { controlador.isAppearanceLightStatusBars = true }
+    }
+
+    val colores = MaterialTheme.colorScheme
+
     TopAppBar(
         title = {
             Column {
@@ -23,9 +38,16 @@ fun BarraSuperior(
             }
         },
         actions = {
-            TextButton(onClick = onCerrarSesion) {
+            TextButton(
+                onClick = onCerrarSesion,
+                colors = ButtonDefaults.textButtonColors(contentColor = colores.onSecondary)
+            ) {
                 Text("Cerrar sesión")
             }
-        }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = colores.secondary,
+            titleContentColor = colores.onSecondary
+        )
     )
 }
