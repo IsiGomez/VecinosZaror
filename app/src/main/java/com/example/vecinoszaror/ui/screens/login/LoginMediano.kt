@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.vecinoszaror.model.LoginUiState
 import com.example.vecinoszaror.style.VecinosZarorTheme
+import com.example.vecinoszaror.ui.components.Tarjeta
 
 /** Dentro de una tarjeta centrada de ancho limitado */
 @Composable
@@ -35,7 +35,7 @@ fun LoginMediano(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Card(modifier = Modifier.fillMaxWidth().widthIn(max = 480.dp)) {
+        Tarjeta(modifier = Modifier.fillMaxWidth().widthIn(max = 480.dp)) {
             Column(
                 modifier = Modifier.padding(32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally

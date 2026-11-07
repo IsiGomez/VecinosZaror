@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -31,6 +30,7 @@ import com.example.vecinoszaror.model.InformeFinanciero
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.ui.components.ContenidoCargando
 import com.example.vecinoszaror.ui.components.EstadoVacio
+import com.example.vecinoszaror.ui.components.Tarjeta
 import com.example.vecinoszaror.ui.utils.formatearFecha
 import com.example.vecinoszaror.ui.utils.formatearMonto
 import com.example.vecinoszaror.viewmodel.InformesViewModel
@@ -105,7 +105,7 @@ private fun TarjetaInforme(
         else MaterialTheme.colorScheme.onSurfaceVariant,
         label = "colorEstado"
     )
-    Card(modifier = modifier.fillMaxWidth()) {
+    Tarjeta(modifier = modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
