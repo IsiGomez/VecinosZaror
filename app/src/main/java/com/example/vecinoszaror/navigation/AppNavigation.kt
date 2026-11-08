@@ -25,6 +25,7 @@ import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
 import com.example.vecinoszaror.ui.screens.informes.GenerarInformeScreen
 import com.example.vecinoszaror.ui.screens.informes.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
+import com.example.vecinoszaror.ui.screens.reservas.DetalleReservaScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
 import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
 import com.example.vecinoszaror.ui.screens.reservas.SolicitudReservaScreen
@@ -32,6 +33,7 @@ import com.example.vecinoszaror.ui.utils.TipoPantalla
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.AvisosViewModel
+import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
@@ -56,6 +58,7 @@ fun AppNavigation(
     authViewModel: AuthViewModel,
     navigationViewModel: NavigationViewModel,
     reservasViewModel: ReservasViewModel,
+    detalleReservaViewModel: DetalleReservaViewModel,
     solicitudReservaViewModel: SolicitudReservaViewModel,
     disponibilidadViewModel: DisponibilidadViewModel,
     finanzasViewModel: FinanzasViewModel,
@@ -168,7 +171,21 @@ fun AppNavigation(
                             viewModel = reservasViewModel,
                             sesion = sesion,
                             onSolicitarReserva = { navigationViewModel.irA(Screen.SolicitudReserva) },
-                            onVerDisponibilidad = { navigationViewModel.irA(Screen.Disponibilidad) }
+                            onVerDisponibilidad = { navigationViewModel.irA(Screen.Disponibilidad) },
+                            onVerDetalle = { reservaId ->
+                                /** Primero se le dice al ViewModel qué reserva, luego se navega */
+                                detalleReservaViewModel.cargar(reservaId, sesion)
+                                navigationViewModel.irA(Screen.DetalleReserva, evitarDuplicados = true)
+                            }
+                        )
+                    }
+                }
+                composable(Screen.DetalleReserva.route) {
+                    if (sesion != null) {
+                        DetalleReservaScreen(
+                            viewModel = detalleReservaViewModel,
+                            sesion = sesion,
+                            onVolver = { navigationViewModel.volver() }
                         )
                     }
                 }

@@ -1,5 +1,6 @@
 package com.example.vecinoszaror.ui.screens.reservas
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,12 +32,14 @@ import com.example.vecinoszaror.ui.utils.formatearMonto
  * Solo dibuja, no sabe de ViewModels
  * Cada botón aparece si el rol puede hacerlo (null = no puede)
  * y si el estado de la reserva lo permite.
+ * Si recibe [onClick], tocar la tarjeta abre el detalle.
  */
 @Composable
 fun TarjetaReserva(
     detalle: ReservaConDetalle,
     mostrarSolicitante: Boolean,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     onConfirmar: (() -> Unit)? = null,
     onRechazar: (() -> Unit)? = null,
     onCancelar: (() -> Unit)? = null
@@ -47,7 +50,9 @@ fun TarjetaReserva(
 
     Tarjeta(modifier = modifier.fillMaxWidth()) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Row(
@@ -108,7 +113,7 @@ fun TarjetaReserva(
 
 /** Color segun estado */
 @Composable
-private fun EtiquetaEstado(estado: EstadoReserva) {
+fun EtiquetaEstado(estado: EstadoReserva) {
     val (fondo, texto) = when (estado) {
         EstadoReserva.PENDIENTE ->
             MaterialTheme.colorScheme.tertiaryContainer to MaterialTheme.colorScheme.onTertiaryContainer

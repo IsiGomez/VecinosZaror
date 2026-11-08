@@ -50,7 +50,8 @@ fun ReservasScreen(
     viewModel: ReservasViewModel,
     sesion: SesionUsuario,
     onSolicitarReserva: () -> Unit,
-    onVerDisponibilidad: () -> Unit
+    onVerDisponibilidad: () -> Unit,
+    onVerDetalle: (Long) -> Unit
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -141,6 +142,7 @@ fun ReservasScreen(
                         TarjetaReserva(
                             detalle = detalle,
                             mostrarSolicitante = estado.puedeVerTodas,
+                            onClick = { onVerDetalle(reserva.id) },
                             onConfirmar = if (puedeGestionar) {
                                 { viewModel.responder(reserva, true, null, sesion) }
                             } else null,
