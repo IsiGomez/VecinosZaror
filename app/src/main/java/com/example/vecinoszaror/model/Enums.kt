@@ -29,6 +29,7 @@ enum class CategoriaGasto {
 enum class TipoNotificacion {
     RESERVA_CONFIRMADA,
     RESERVA_RECHAZADA,
+    RESERVA_CANCELADA,
     PAGO_REGISTRADO,
     RECORDATORIO,
     INFORME_PUBLICADO,

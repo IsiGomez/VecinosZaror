@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,6 +22,7 @@ import com.example.vecinoszaror.model.Reserva
 import com.example.vecinoszaror.model.ReservaConDetalle
 import com.example.vecinoszaror.model.Usuario
 import com.example.vecinoszaror.style.VecinosZarorTheme
+import com.example.vecinoszaror.ui.components.Tarjeta
 import com.example.vecinoszaror.ui.utils.etiqueta
 import com.example.vecinoszaror.ui.utils.formatearFechaHora
 import com.example.vecinoszaror.ui.utils.formatearMonto
@@ -45,7 +45,7 @@ fun TarjetaReserva(
     val pendiente = reserva.estado == EstadoReserva.PENDIENTE
     val vigente = pendiente || reserva.estado == EstadoReserva.CONFIRMADA
 
-    Card(modifier = modifier.fillMaxWidth()) {
+    Tarjeta(modifier = modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
