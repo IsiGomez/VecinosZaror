@@ -102,7 +102,7 @@ class ReservaRepository(private val db: AppDatabase) {
             notificacionDao.insertar(
                 Notificacion(
                     usuarioId = reserva.usuarioId,
-                    tipo = TipoNotificacion.GENERAL,
+                    tipo = TipoNotificacion.RESERVA_CANCELADA,
                     titulo = "Reserva cancelada",
                     mensaje = observacion ?: "Tu reserva fue cancelada por la Directiva.",
                     reservaId = reservaId
