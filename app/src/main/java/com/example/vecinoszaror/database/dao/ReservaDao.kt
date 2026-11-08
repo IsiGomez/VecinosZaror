@@ -49,6 +49,11 @@ abstract class ReservaDao {
     @Query("SELECT * FROM reserva WHERE usuarioId = :usuarioId ORDER BY fechaHoraInicio DESC")
     abstract fun observarPorUsuario(usuarioId: Long): Flow<List<ReservaConDetalle>>
 
+    /** Una reserva con solicitante y recinto; null si no existe. */
+    @Transaction
+    @Query("SELECT * FROM reserva WHERE id = :id")
+    abstract fun observarDetalle(id: Long): Flow<ReservaConDetalle?>
+
     @Transaction
     @Query("SELECT * FROM reserva ORDER BY fechaHoraInicio DESC")
     abstract fun observarTodas(): Flow<List<ReservaConDetalle>>

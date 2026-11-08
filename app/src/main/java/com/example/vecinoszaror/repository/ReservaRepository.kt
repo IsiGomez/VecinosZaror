@@ -17,6 +17,8 @@ class ReservaRepository(private val db: AppDatabase) {
 
     fun observarTodas(): Flow<List<ReservaConDetalle>> = reservaDao.observarTodas()
 
+    fun observarDetalle(id: Long): Flow<ReservaConDetalle?> = reservaDao.observarDetalle(id)
+
     fun observarPorUsuario(usuarioId: Long): Flow<List<ReservaConDetalle>> =
         reservaDao.observarPorUsuario(usuarioId)
 
