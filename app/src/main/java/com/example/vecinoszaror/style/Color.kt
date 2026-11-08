@@ -18,3 +18,8 @@ val RojoError = Color(0xFFC62828)
 val RojoErrorClaro = Color(0xFFFFDAD6)
 val AmbarPendiente = Color(0xFF7A5900)
 val AmbarPendienteClaro = Color(0xFFFFEFC2)
+
+val VerdeClaroOscuro = Color(0xFF8FD48F)
+val VerdeContenedorOscuro = Color(0xFF1C5E20)
+val FondoOscuro = Color(0xFF101410)
+val TextoClaro = Color(0xFFE1E6E0)

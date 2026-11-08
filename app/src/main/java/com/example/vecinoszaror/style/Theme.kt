@@ -1,8 +1,10 @@
 package com.example.vecinoszaror.style
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -47,6 +49,46 @@ private val EsquemaClaro = lightColorScheme(
     surfaceContainerHighest = Color(0xFFE4EBE4)
 )
 
+private val EsquemaOscuro = darkColorScheme(
+    primary = VerdeClaroOscuro,
+    onPrimary = Color(0xFF00390A),
+    primaryContainer = VerdeContenedorOscuro,
+    onPrimaryContainer = Color(0xFFBFF0BF),
+
+    secondary = VerdeContenedorOscuro,
+    onSecondary = Blanco,
+    secondaryContainer = Color(0xFF2F4F31),
+    onSecondaryContainer = Color(0xFFD6EFD7),
+
+    tertiary = Color(0xFFF0C14B),
+    onTertiary = Color(0xFF402D00),
+    tertiaryContainer = Color(0xFF5C4300),
+    onTertiaryContainer = Color(0xFFFFDEA0),
+
+    error = Color(0xFFFFB4AB),
+    onError = Color(0xFF690005),
+    errorContainer = Color(0xFF93000A),
+    onErrorContainer = RojoErrorClaro,
+
+    background = FondoOscuro,
+    onBackground = TextoClaro,
+
+    surface = FondoOscuro,
+    onSurface = TextoClaro,
+    surfaceVariant = Color(0xFF414941),
+    onSurfaceVariant = Color(0xFFC1C9BF),
+
+    outline = Color(0xFF8B938A),
+    outlineVariant = Color(0xFF414941),
+
+    surfaceContainerLowest = Color(0xFF0B0F0B),
+    surfaceContainerLow = Color(0xFF181C18),
+    surfaceContainer = Color(0xFF1C201C),
+    surfaceContainerHigh = Color(0xFF262B26),
+    surfaceContainerHighest = Color(0xFF313631)
+)
+
+
 // Esquinas redondeadas más suaves
 private val Formas = Shapes(
     extraSmall = RoundedCornerShape(6.dp),
@@ -57,9 +99,12 @@ private val Formas = Shapes(
 )
 
 @Composable
-fun VecinosZarorTheme(content: @Composable () -> Unit) {
+fun VecinosZarorTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
     MaterialTheme(
-        colorScheme = EsquemaClaro,
+        colorScheme = if (darkTheme) EsquemaOscuro else EsquemaClaro,
         typography = Typography,
         shapes = Formas,
         content = content

@@ -1,6 +1,7 @@
 package com.example.vecinoszaror.ui.components
 
 import android.app.Activity
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,10 +23,11 @@ fun BarraSuperior(
     onCerrarSesion: () -> Unit
 ) {
     val vista = LocalView.current
-    DisposableEffect(vista) {
+    val temaOscuro = isSystemInDarkTheme()
+    DisposableEffect(vista, temaOscuro) {
         val controlador = WindowCompat.getInsetsController((vista.context as Activity).window, vista)
         controlador.isAppearanceLightStatusBars = false
-        onDispose { controlador.isAppearanceLightStatusBars = true }
+        onDispose { controlador.isAppearanceLightStatusBars = !temaOscuro }
     }
 
     val colores = MaterialTheme.colorScheme
