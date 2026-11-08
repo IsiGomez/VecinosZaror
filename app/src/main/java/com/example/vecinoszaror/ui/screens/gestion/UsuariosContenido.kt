@@ -19,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,6 +30,7 @@ import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.model.Usuario
 import com.example.vecinoszaror.ui.components.ContenidoCargando
 import com.example.vecinoszaror.ui.components.EstadoVacio
+import com.example.vecinoszaror.ui.components.EtiquetaActivo
 import com.example.vecinoszaror.ui.components.FilaFiltros
 import com.example.vecinoszaror.ui.components.Tarjeta
 import com.example.vecinoszaror.ui.utils.etiqueta
@@ -132,22 +132,5 @@ private fun TarjetaUsuario(
             }
             EtiquetaActivo(usuario.activo)
         }
-    }
-}
-
-/** Etiqueta redonda. */
-@Composable
-private fun EtiquetaActivo(activo: Boolean) {
-    val fondo = if (activo) MaterialTheme.colorScheme.secondaryContainer
-                else MaterialTheme.colorScheme.errorContainer
-    val texto = if (activo) MaterialTheme.colorScheme.onSecondaryContainer
-                else MaterialTheme.colorScheme.onErrorContainer
-    Surface(shape = CircleShape, color = fondo) {
-        Text(
-            text = if (activo) "Activo" else "Inactivo",
-            color = texto,
-            style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-        )
     }
 }
