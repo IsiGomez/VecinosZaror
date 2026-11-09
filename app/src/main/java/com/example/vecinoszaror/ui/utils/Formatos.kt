@@ -1,6 +1,7 @@
 package com.example.vecinoszaror.ui.utils
 
 import com.example.vecinoszaror.model.CategoriaGasto
+import com.example.vecinoszaror.model.EstadoPago
 import com.example.vecinoszaror.model.EstadoReserva
 import com.example.vecinoszaror.model.MetodoPago
 import com.example.vecinoszaror.model.Rol
@@ -42,6 +43,16 @@ fun EstadoReserva.etiqueta(): String = when (this) {
     EstadoReserva.RECHAZADA -> "Rechazada"
     EstadoReserva.CANCELADA -> "Cancelada"
     EstadoReserva.FINALIZADA -> "Finalizada"
+}
+
+
+/** Nombre del estado del pago para mostrar */
+fun EstadoPago.etiqueta(): String = when (this) {
+    EstadoPago.NO_APLICA -> "No aplica"
+    EstadoPago.SIN_COSTO -> "Sin costo"
+    EstadoPago.PENDIENTE -> "Pendiente"
+    EstadoPago.ABONADO -> "Abonado"
+    EstadoPago.PAGADO -> "Pagado"
 }
 
 

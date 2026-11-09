@@ -13,6 +13,7 @@ import com.example.vecinoszaror.style.VecinosZarorTheme
 import com.example.vecinoszaror.ui.utils.tipoPantalla
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.AvisosViewModel
+import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
                 val authViewModel: AuthViewModel = viewModel(factory = factory)
                 val navigationViewModel: NavigationViewModel = viewModel(factory = factory)
                 val reservasViewModel: ReservasViewModel = viewModel(factory = factory)
+                val detalleReservaViewModel: DetalleReservaViewModel = viewModel(factory = factory)
                 val solicitudReservaViewModel: SolicitudReservaViewModel = viewModel(factory = factory)
                 val disponibilidadViewModel: DisponibilidadViewModel = viewModel(factory = factory)
                 val finanzasViewModel: FinanzasViewModel = viewModel(factory = factory)
@@ -57,6 +59,7 @@ class MainActivity : ComponentActivity() {
                 val tipoPantalla = calculateWindowSizeClass(this).tipoPantalla()
                 AppNavigation(
                     authViewModel, navigationViewModel, reservasViewModel,
+                    detalleReservaViewModel,
                     solicitudReservaViewModel, disponibilidadViewModel, finanzasViewModel,
                     pagoViewModel, gastoViewModel, avisosViewModel, informesViewModel,
                     generarInformeViewModel, usuariosViewModel,

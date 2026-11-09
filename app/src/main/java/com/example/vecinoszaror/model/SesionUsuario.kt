@@ -17,4 +17,9 @@ data class SesionUsuario(
         }
 
     fun tienePermiso(codigo: String): Boolean = codigo in permisos
+
+    /** Si este usuario puede cancelar la reserva. */
+    fun puedeCancelar(reserva: Reserva): Boolean =
+        tienePermiso(Permisos.RESERVA_GESTIONAR) ||
+                (tienePermiso(Permisos.RESERVA_CANCELAR_PROPIA) && reserva.usuarioId == usuario.id)
 }

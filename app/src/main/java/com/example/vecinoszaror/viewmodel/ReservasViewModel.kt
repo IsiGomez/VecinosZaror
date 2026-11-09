@@ -76,10 +76,8 @@ class ReservasViewModel (
     }
 
     fun cancelar(reserva: Reserva, observacion: String?, sesion: SesionUsuario) {
+        if (!sesion.puedeCancelar(reserva)) return
         val esPropia = reserva.usuarioId == sesion.usuario.id
-        val puede = sesion.tienePermiso(Permisos.RESERVA_GESTIONAR) ||
-                (esPropia && sesion.tienePermiso(Permisos.RESERVA_CANCELAR_PROPIA))
-        if (!puede) return
         viewModelScope.launch {
             val exito = reservaRepository.cancelar(
                 reservaId = reserva.id,

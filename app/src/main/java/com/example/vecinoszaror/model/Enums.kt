@@ -35,3 +35,13 @@ enum class TipoNotificacion {
     INFORME_PUBLICADO,
     GENERAL
 }
+
+/** Cómo va el pago de una reserva. */
+enum class EstadoPago {
+    /** Rechazada o cancelada: no hay nada que pagar. */
+    NO_APLICA,
+    SIN_COSTO,
+    PENDIENTE,
+    ABONADO,
+    PAGADO
+}

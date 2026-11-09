@@ -39,6 +39,9 @@ class ViewModelFactory(private val app: VecinosZarorApp) : ViewModelProvider.Fac
         modelClass.isAssignableFrom(AvisosViewModel::class.java) ->
             AvisosViewModel(app.notificacionRepository) as T
 
+        modelClass.isAssignableFrom(DetalleReservaViewModel::class.java) ->
+            DetalleReservaViewModel(app.reservaRepository, app.finanzasRepository, app.usuarioRepository) as T
+
         modelClass.isAssignableFrom(InformesViewModel::class.java) ->
             InformesViewModel(app.finanzasRepository) as T
 
