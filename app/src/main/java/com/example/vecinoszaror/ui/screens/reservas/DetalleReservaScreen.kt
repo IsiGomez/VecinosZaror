@@ -16,9 +16,19 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,46 +67,105 @@ fun DetalleReservaScreen(
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
     val mostrarSolicitante = sesion.tienePermiso(Permisos.RESERVA_VER_TODAS)
+    val snackbarHostState = remember { SnackbarHostState() }
+    var confirmandoCancelacion by remember { mutableStateOf(false) }
 
-    ContenidoCargando(cargando = estado.cargando, modifier = Modifier.fillMaxSize()) {
-        val detalle = estado.detalle
-        if (detalle == null) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                EstadoVacio(
-                    icono = Icons.Filled.DateRange,
-                    titulo = "Reserva no encontrada",
-                    mensaje = "La reserva no existe o no tienes permiso para verla."
-                )
-                TextButton(onClick = onVolver) { Text("Volver") }
-            }
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+    /** Muestra los mensajes de una sola vez que manda el ViewModel */
+    LaunchedEffect(Unit) {
+        viewModel.mensajes.collect { mensaje -> snackbarHostState.showSnackbar(mensaje) }
+    }
+
+    if (confirmandoCancelacion) {
+        DialogoCancelar(
+            onConfirmar = { motivo ->
+                viewModel.cancelar(motivo, sesion)
+                confirmandoCancelacion = false
+            },
+            onCerrar = { confirmandoCancelacion = false }
+        )
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        ContenidoCargando(cargando = estado.cargando, modifier = Modifier.fillMaxSize()) {
+            val detalle = estado.detalle
+            if (detalle == null) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    EstadoVacio(
+                        icono = Icons.Filled.DateRange,
+                        titulo = "Reserva no encontrada",
+                        mensaje = "La reserva no existe o no tienes permiso para verla."
+                    )
+                    TextButton(onClick = onVolver) { Text("Volver") }
+                }
+            } else {
                 Column(
                     modifier = Modifier
-                        .widthIn(max = 600.dp)
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Detalle de la reserva", style = MaterialTheme.typography.headlineSmall)
-                    TarjetaDatos(estado, mostrarSolicitante)
-                    TarjetaPago(estado)
-                    TarjetaSeguimiento(pasosDeSeguimiento(estado))
-                    TextButton(onClick = onVolver, modifier = Modifier.fillMaxWidth()) {
-                        Text("Volver")
+                    Column(
+                        modifier = Modifier
+                            .widthIn(max = 600.dp)
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Text("Detalle de la reserva", style = MaterialTheme.typography.headlineSmall)
+                        TarjetaDatos(estado, mostrarSolicitante)
+                        TarjetaPago(estado)
+                        TarjetaSeguimiento(pasosDeSeguimiento(estado))
+                        if (estado.puedeCancelar) {
+                            OutlinedButton(
+                                onClick = { confirmandoCancelacion = true },
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                            ) {
+                                Text("Cancelar reserva")
+                            }
+                        }
+                        TextButton(onClick = onVolver, modifier = Modifier.fillMaxWidth()) {
+                            Text("Volver")
+                        }
                     }
                 }
             }
         }
+
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(16.dp)
+        )
     }
+}
+
+/** Pregunta si de verdad se quiere cancelar y deja escribir un motivo. */
+@Composable
+private fun DialogoCancelar(
+    onConfirmar: (String) -> Unit,
+    onCerrar: () -> Unit
+) {
+    var motivo by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onCerrar,
+        title = { Text("¿Cancelar la reserva?") },
+        text = {
+            OutlinedTextField(
+                value = motivo,
+                onValueChange = { motivo = it },
+                label = { Text("Motivo (opcional)") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        confirmButton = { TextButton(onClick = { onConfirmar(motivo) }) { Text("Cancelar reserva") } },
+        dismissButton = { TextButton(onClick = onCerrar) { Text("Volver") } }
+    )
 }
 
 /** Recinto, estado, horario y datos de la solicitud. */

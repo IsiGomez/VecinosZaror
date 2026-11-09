@@ -8,6 +8,8 @@ data class DetalleReservaUiState(
     val pagado: Long = 0,
     /** Nombre de quien confirmó/rechazó/canceló la reserva. */
     val gestionadaPor: String? = null,
+    /** El rol puede cancelarla y su estado lo permite. */
+    val puedeCancelar: Boolean = false,
     val cargando: Boolean = true
 ) {
     val noEncontrada: Boolean
