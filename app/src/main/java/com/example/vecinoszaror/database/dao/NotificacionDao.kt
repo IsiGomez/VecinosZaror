@@ -12,6 +12,9 @@ interface NotificacionDao {
     @Insert
     suspend fun insertar(notificacion: Notificacion): Long
 
+    @Insert
+    suspend fun insertarTodas(notificaciones: List<Notificacion>)
+
     @Query("SELECT * FROM notificacion WHERE usuarioId = :usuarioId ORDER BY fechaCreacion DESC")
     fun observarPorUsuario(usuarioId: Long): Flow<List<Notificacion>>
 

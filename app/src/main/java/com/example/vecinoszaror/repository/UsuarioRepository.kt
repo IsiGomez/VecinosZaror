@@ -40,6 +40,9 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
 
     suspend fun obtenerPorId(id: Long): Usuario? = usuarioDao.obtenerPorId(id)
 
+    suspend fun obtenerActivosPorRoles(nombresRol: List<String>): List<Usuario> =
+        usuarioDao.obtenerActivosPorRoles(nombresRol)
+
     /**
      * Guarda los cambios de un usuario. Si [nuevaClave] no es null, también cambia su clave.
      * Devuelve false si el correo ya lo usa otra persona.

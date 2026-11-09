@@ -90,6 +90,7 @@ fun etiquetaModulo(modulo: String): String = when (modulo) {
     "RESERVAS" -> "Reservas"
     "FINANZAS" -> "Finanzas"
     "INFORMES" -> "Informes"
+    "AVISOS" -> "Avisos"
     "ADMINISTRACION" -> "Administración"
     else -> modulo
 }
