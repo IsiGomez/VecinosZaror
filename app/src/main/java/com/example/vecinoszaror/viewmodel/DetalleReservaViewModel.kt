@@ -40,8 +40,6 @@ class DetalleReservaViewModel(
         tareaEscucha?.cancel()
         _estado.value = DetalleReservaUiState(cargando = true)
         val puedeVerTodas = sesion.tienePermiso(Permisos.RESERVA_VER_TODAS)
-        val puedeGestionar = sesion.tienePermiso(Permisos.RESERVA_GESTIONAR)
-        val puedeCancelarPropias = sesion.tienePermiso(Permisos.RESERVA_CANCELAR_PROPIA)
 
         tareaEscucha = viewModelScope.launch {
             // Se actualiza sola si la reserva cambia de estado o se registra un pago
@@ -60,14 +58,13 @@ class DetalleReservaViewModel(
                     val reserva = visible?.reserva
                     val vigente = reserva?.estado == EstadoReserva.PENDIENTE ||
                             reserva?.estado == EstadoReserva.CONFIRMADA
-                    val esPropia = reserva?.usuarioId == sesion.usuario.id
 
                     _estado.value = DetalleReservaUiState(
                         detalle = visible,
                         pagado = pagado,
                         gestionadaPor = gestionadaPor,
                         // Recalcula con cada cambio, así el botón desaparece apenas se cancela
-                        puedeCancelar = vigente && (puedeGestionar || (esPropia && puedeCancelarPropias)),
+                        puedeCancelar = reserva != null && vigente && sesion.puedeCancelar(reserva),
                         cargando = false
                     )
                 }

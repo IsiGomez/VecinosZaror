@@ -58,7 +58,6 @@ fun ReservasScreen(
     var accionPendiente by remember { mutableStateOf<AccionPendiente?>(null) }
 
     val puedeGestionar = sesion.tienePermiso(Permisos.RESERVA_GESTIONAR)
-    val puedeCancelarPropias = sesion.tienePermiso(Permisos.RESERVA_CANCELAR_PROPIA)
 
     /** Avisa al ViewModel quién es el usuario */
     LaunchedEffect(sesion) {
@@ -135,8 +134,7 @@ fun ReservasScreen(
                     /** key: identifica cada tarjeta para que Compose no las redibuje */
                     items(estado.reservas, key = { it.reserva.id }) { detalle ->
                         val reserva = detalle.reserva
-                        val puedeCancelar = puedeGestionar ||
-                                (puedeCancelarPropias && reserva.usuarioId == sesion.usuario.id)
+                        val puedeCancelar = sesion.puedeCancelar(reserva)
 
                         /** Si el rol no puede hacer la acción se pasa null y el botón no aparece */
                         TarjetaReserva(
