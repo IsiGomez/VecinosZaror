@@ -64,6 +64,16 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
         }
     }
 
+    /**
+     * Cambia la clave de un usuario si [claveActual] es la correcta.
+     * Devuelve false si la clave actual no coincide.
+     */
+    suspend fun cambiarClave(usuarioId: Long, claveActual: String, claveNueva: String): Boolean {
+        val usuario = usuarioDao.obtenerPorId(usuarioId) ?: return false
+        if (usuario.claveHash != hashClave(claveActual)) return false
+        usuarioDao.actualizar(usuario.copy(claveHash = hashClave(claveNueva)))
+        return true
+    }
 
     private fun hashClave(clave: String): String =
         MessageDigest.getInstance("SHA-256")
