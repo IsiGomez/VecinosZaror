@@ -82,6 +82,9 @@ object DatabaseInitial {
                 codigo = "INFORME_VER_PUBLICADOS", descripcion = "Ver informes publicados",
                 modulo = "INFORMES"),
             Permiso(
+                codigo = "AVISO_ENVIAR", descripcion = "Enviar avisos a los vecinos y a la directiva",
+                modulo = "AVISOS"),
+            Permiso(
                 codigo = "USUARIO_GESTIONAR", descripcion = "Administrar usuarios",
                 modulo = "ADMINISTRACION"),
             Permiso(
@@ -109,7 +112,7 @@ object DatabaseInitial {
             "SECRETARIA" to listOf(
                 "RESERVA_SOLICITAR", "RESERVA_VER_PROPIAS", "RESERVA_CANCELAR_PROPIA",
                 "RESERVA_VER_TODAS", "RESERVA_VERIFICAR_DISPONIBILIDAD", "RESERVA_GESTIONAR",
-                "INFORME_VER_PUBLICADOS"
+                "INFORME_VER_PUBLICADOS", "AVISO_ENVIAR"
             ),
             "TESORERIA" to listOf(
                 "RESERVA_VER_TODAS", "PAGO_REGISTRAR", "GASTO_REGISTRAR",
@@ -118,7 +121,7 @@ object DatabaseInitial {
             "DIRECTIVA" to listOf(
                 "RESERVA_VER_TODAS", "RESERVA_VERIFICAR_DISPONIBILIDAD", "RESERVA_GESTIONAR",
                 "FINANZAS_VER_DETALLE", "INFORME_PUBLICAR", "INFORME_VER_PUBLICADOS",
-                "USUARIO_GESTIONAR", "ROL_PERMISO_GESTIONAR", "RECINTO_GESTIONAR"
+                "AVISO_ENVIAR", "USUARIO_GESTIONAR", "ROL_PERMISO_GESTIONAR", "RECINTO_GESTIONAR"
             )
         )
 

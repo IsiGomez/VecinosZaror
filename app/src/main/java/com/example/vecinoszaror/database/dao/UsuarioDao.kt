@@ -33,6 +33,13 @@ interface UsuarioDao {
     @Query("SELECT * FROM usuario WHERE id = :id")
     suspend fun obtenerConRol(id: Long): UsuarioConRol?
 
+    /** Usuarios activos cuyo rol (nombre) está en la lista. */
+    @Query(
+        "SELECT usuario.* FROM usuario INNER JOIN rol ON usuario.rolId = rol.id " +
+        "WHERE rol.nombre IN (:nombresRol) AND usuario.activo = 1"
+    )
+    suspend fun obtenerActivosPorRoles(nombresRol: List<String>): List<Usuario>
+
     @Query("SELECT * FROM usuario ORDER BY apellido, nombre")
     fun observarTodos(): Flow<List<Usuario>>
 

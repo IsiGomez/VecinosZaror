@@ -45,3 +45,10 @@ enum class EstadoPago {
     ABONADO,
     PAGADO
 }
+
+/** A quién se envía un aviso, [roles] son los nombres de rol que lo reciben. */
+enum class Destinatario(val roles: List<String>) {
+    TODOS(listOf("VECINO", "SECRETARIA", "TESORERIA", "DIRECTIVA")),
+    VECINOS(listOf("VECINO")),
+    DIRECTIVA(listOf("SECRETARIA", "TESORERIA", "DIRECTIVA"))
+}

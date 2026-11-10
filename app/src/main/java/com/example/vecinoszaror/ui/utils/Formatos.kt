@@ -1,6 +1,7 @@
 package com.example.vecinoszaror.ui.utils
 
 import com.example.vecinoszaror.model.CategoriaGasto
+import com.example.vecinoszaror.model.Destinatario
 import com.example.vecinoszaror.model.EstadoPago
 import com.example.vecinoszaror.model.EstadoReserva
 import com.example.vecinoszaror.model.MetodoPago
@@ -56,6 +57,14 @@ fun EstadoPago.etiqueta(): String = when (this) {
 }
 
 
+/** Nombre de cada opción de destinatario de un aviso */
+fun Destinatario.etiqueta(): String = when (this) {
+    Destinatario.TODOS -> "Todos"
+    Destinatario.VECINOS -> "Solo vecinos"
+    Destinatario.DIRECTIVA -> "Toda la directiva (Secretaría, Tesorería y Directiva)"
+}
+
+
 /** Nombre del método de pago para mostrar */
 fun MetodoPago.etiqueta(): String = when (this) {
     MetodoPago.EFECTIVO -> "Efectivo"
@@ -90,6 +99,7 @@ fun etiquetaModulo(modulo: String): String = when (modulo) {
     "RESERVAS" -> "Reservas"
     "FINANZAS" -> "Finanzas"
     "INFORMES" -> "Informes"
+    "AVISOS" -> "Avisos"
     "ADMINISTRACION" -> "Administración"
     else -> modulo
 }

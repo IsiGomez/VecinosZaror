@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -30,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vecinoszaror.model.Notificacion
+import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.model.TipoNotificacion
 import com.example.vecinoszaror.ui.components.ContenidoCargando
@@ -42,7 +44,8 @@ import com.example.vecinoszaror.viewmodel.AvisosViewModel
 @Composable
 fun AvisosScreen(
     viewModel: AvisosViewModel,
-    sesion: SesionUsuario
+    sesion: SesionUsuario,
+    onEnviarAviso: () -> Unit
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
 
@@ -73,6 +76,14 @@ fun AvisosScreen(
                     }
                 }
 
+                if (sesion.tienePermiso(Permisos.AVISO_ENVIAR)) {
+                    item {
+                        Button(onClick = onEnviarAviso, modifier = Modifier.fillMaxWidth()) {
+                            Text("Enviar aviso")
+                        }
+                    }
+                }
+
                 if (estado.avisos.isEmpty()) {
                     item {
                         EstadoVacio(
@@ -96,7 +107,7 @@ fun AvisosScreen(
     }
 }
 
-/** Un aviso: los no leídos en negrita y con un puntito. */
+/** Un aviso: punto del color de su tipo, los no leídos en negrita y con el punto más fuerte. */
 @Composable
 private fun TarjetaAviso(aviso: Notificacion, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val colorPunto = colorDeAviso(aviso.tipo).copy(alpha = if (aviso.leida) 0.4f else 1f)
