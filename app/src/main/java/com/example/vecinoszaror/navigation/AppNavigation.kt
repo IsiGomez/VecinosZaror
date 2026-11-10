@@ -26,6 +26,7 @@ import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
 import com.example.vecinoszaror.ui.screens.informes.GenerarInformeScreen
 import com.example.vecinoszaror.ui.screens.informes.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
+import com.example.vecinoszaror.ui.screens.perfil.CambiarClaveScreen
 import com.example.vecinoszaror.ui.screens.perfil.PerfilScreen
 import com.example.vecinoszaror.ui.screens.reservas.DetalleReservaScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
@@ -35,6 +36,7 @@ import com.example.vecinoszaror.ui.utils.TipoPantalla
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.AvisosViewModel
+import com.example.vecinoszaror.viewmodel.CambiarClaveViewModel
 import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.EnviarAvisoViewModel
@@ -76,6 +78,7 @@ fun AppNavigation(
     recintosViewModel: RecintosViewModel,
     recintoFormularioViewModel: RecintoFormularioViewModel,
     rolesViewModel: RolesViewModel,
+    cambiarClaveViewModel: CambiarClaveViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -267,7 +270,10 @@ fun AppNavigation(
                         AvisosScreen(
                             viewModel = avisosViewModel,
                             sesion = sesion,
-                            onEnviarAviso = { navigationViewModel.irA(Screen.EnviarAviso, evitarDuplicados = true) }
+                            onEnviarAviso = {
+                                enviarAvisoViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.EnviarAviso, evitarDuplicados = true)
+                            }
                         )
                     }
                 }
@@ -283,6 +289,19 @@ fun AppNavigation(
                 composable(Screen.Perfil.route) {
                     if (sesion != null) {
                         PerfilScreen(
+                            sesion = sesion,
+                            onCambiarClave = {
+                                cambiarClaveViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.CambiarClave, evitarDuplicados = true)
+                            },
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
+                }
+                composable(Screen.CambiarClave.route) {
+                    if (sesion != null) {
+                        CambiarClaveScreen(
+                            viewModel = cambiarClaveViewModel,
                             sesion = sesion,
                             onVolver = { navigationViewModel.volver() }
                         )

@@ -40,7 +40,7 @@ class CambiarClaveViewModel(
         if (_estado.value.guardando) return
         val datos = _estado.value
 
-        val errores = CambiarClaveErrores(
+        val locales = CambiarClaveErrores(
             actual = if (datos.actual.isEmpty()) "Ingresa tu clave actual" else null,
             nueva = when {
                 datos.nueva.length < CambiarClaveUiState.CLAVE_MINIMA ->
@@ -50,19 +50,24 @@ class CambiarClaveViewModel(
             },
             confirmacion = if (datos.confirmacion != datos.nueva) "Las claves no coinciden" else null
         )
-        _estado.update { it.copy(errores = errores) }
-        if (errores.hayErrores) return
 
         _estado.update { it.copy(guardando = true) }
         viewModelScope.launch {
-            val cambiada = usuarioRepository.cambiarClave(sesion.usuario.id, datos.actual, datos.nueva)
-            if (cambiada) {
-                _estado.value = CambiarClaveUiState(cambiada = true)
+            val actualIncorrecta = datos.actual.isNotEmpty() &&
+                    !usuarioRepository.claveCorrecta(sesion.usuario.id, datos.actual)
+            val errores = if (actualIncorrecta) {
+                locales.copy(actual = "La clave actual no es correcta")
             } else {
-                _estado.update {
-                    it.copy(guardando = false, errores = it.errores.copy(actual = "La clave actual no es correcta"))
-                }
+                locales
             }
+
+            if (errores.hayErrores) {
+                _estado.update { it.copy(guardando = false, errores = errores) }
+                return@launch
+            }
+
+            usuarioRepository.cambiarClave(sesion.usuario.id, datos.actual, datos.nueva)
+            _estado.value = CambiarClaveUiState(cambiada = true)
         }
     }
 }
