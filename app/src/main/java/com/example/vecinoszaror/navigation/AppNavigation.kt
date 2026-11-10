@@ -26,6 +26,7 @@ import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
 import com.example.vecinoszaror.ui.screens.informes.GenerarInformeScreen
 import com.example.vecinoszaror.ui.screens.informes.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
+import com.example.vecinoszaror.ui.screens.perfil.PerfilScreen
 import com.example.vecinoszaror.ui.screens.reservas.DetalleReservaScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
 import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
@@ -85,11 +86,16 @@ fun AppNavigation(
     LaunchedEffect(navController) {
         navigationViewModel.eventos.collect { evento ->
             when (evento) {
-                is NavigationEvent.IrA -> navController.navigate(evento.destino.route) {
-                    evento.limpiarHasta?.let { pantalla ->
-                        popUpTo(pantalla.route) { inclusive = evento.incluirEsaPantalla }
+                is NavigationEvent.IrA -> {
+                    if (evento.evitarDuplicados && navController.currentDestination?.route == evento.destino.route) {
+                        return@collect
                     }
-                    launchSingleTop = evento.evitarDuplicados
+                    navController.navigate(evento.destino.route) {
+                        evento.limpiarHasta?.let { pantalla ->
+                            popUpTo(pantalla.route) { inclusive = evento.incluirEsaPantalla }
+                        }
+                        launchSingleTop = evento.evitarDuplicados
+                    }
                 }
 
                 is NavigationEvent.IrALimpiandoHistorial -> navController.navigate(evento.destino.route) {
@@ -121,6 +127,7 @@ fun AppNavigation(
                 BarraSuperior(
                     nombre = sesion.usuario.nombre,
                     rol = sesion.nombreRol,
+                    onVerPerfil = { navigationViewModel.irA(Screen.Perfil, evitarDuplicados = true) },
                     onCerrarSesion = {
                         authViewModel.cerrarSesion()
                         navigationViewModel.irALimpiandoHistorial(Screen.Login)
@@ -268,6 +275,14 @@ fun AppNavigation(
                     if (sesion != null && sesion.tienePermiso(Permisos.AVISO_ENVIAR)) {
                         EnviarAvisoScreen(
                             viewModel = enviarAvisoViewModel,
+                            sesion = sesion,
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
+                }
+                composable(Screen.Perfil.route) {
+                    if (sesion != null) {
+                        PerfilScreen(
                             sesion = sesion,
                             onVolver = { navigationViewModel.volver() }
                         )
