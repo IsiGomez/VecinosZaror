@@ -19,6 +19,7 @@ import com.example.vecinoszaror.ui.components.BarraLateral
 import com.example.vecinoszaror.ui.components.BarraSuperior
 import com.example.vecinoszaror.ui.screens.gestion.GestionScreen
 import com.example.vecinoszaror.ui.screens.avisos.AvisosScreen
+import com.example.vecinoszaror.ui.screens.avisos.EnviarAvisoScreen
 import com.example.vecinoszaror.ui.screens.finanzas.FinanzasScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarGastoScreen
 import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
@@ -35,6 +36,7 @@ import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.AvisosViewModel
 import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
+import com.example.vecinoszaror.viewmodel.EnviarAvisoViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
@@ -65,6 +67,7 @@ fun AppNavigation(
     pagoViewModel: PagoViewModel,
     gastoViewModel: GastoViewModel,
     avisosViewModel: AvisosViewModel,
+    enviarAvisoViewModel: EnviarAvisoViewModel,
     informesViewModel: InformesViewModel,
     generarInformeViewModel: GenerarInformeViewModel,
     usuariosViewModel: UsuariosViewModel,
@@ -253,7 +256,22 @@ fun AppNavigation(
                     }
                 }
                 composable(Screen.Avisos.route) {
-                    if (sesion != null) AvisosScreen(viewModel = avisosViewModel, sesion = sesion)
+                    if (sesion != null) {
+                        AvisosScreen(
+                            viewModel = avisosViewModel,
+                            sesion = sesion,
+                            onEnviarAviso = { navigationViewModel.irA(Screen.EnviarAviso, evitarDuplicados = true) }
+                        )
+                    }
+                }
+                composable(Screen.EnviarAviso.route) {
+                    if (sesion != null && sesion.tienePermiso(Permisos.AVISO_ENVIAR)) {
+                        EnviarAvisoScreen(
+                            viewModel = enviarAvisoViewModel,
+                            sesion = sesion,
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
                 }
                 composable(Screen.Gestion.route) {
                     if (sesion != null) {

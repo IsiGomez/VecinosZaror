@@ -1,6 +1,7 @@
 package com.example.vecinoszaror.ui.utils
 
 import com.example.vecinoszaror.model.CategoriaGasto
+import com.example.vecinoszaror.model.Destinatario
 import com.example.vecinoszaror.model.EstadoPago
 import com.example.vecinoszaror.model.EstadoReserva
 import com.example.vecinoszaror.model.MetodoPago
@@ -53,6 +54,14 @@ fun EstadoPago.etiqueta(): String = when (this) {
     EstadoPago.PENDIENTE -> "Pendiente"
     EstadoPago.ABONADO -> "Abonado"
     EstadoPago.PAGADO -> "Pagado"
+}
+
+
+/** Nombre de cada opción de destinatario de un aviso */
+fun Destinatario.etiqueta(): String = when (this) {
+    Destinatario.TODOS -> "Todos"
+    Destinatario.VECINOS -> "Solo vecinos"
+    Destinatario.DIRECTIVA -> "Toda la directiva (Secretaría, Tesorería y Directiva)"
 }
 
 

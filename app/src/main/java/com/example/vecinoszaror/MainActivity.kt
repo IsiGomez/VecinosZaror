@@ -17,6 +17,7 @@ import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
+import com.example.vecinoszaror.viewmodel.EnviarAvisoViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.InformesViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
                 val pagoViewModel: PagoViewModel = viewModel(factory = factory)
                 val gastoViewModel: GastoViewModel = viewModel(factory = factory)
                 val avisosViewModel: AvisosViewModel = viewModel(factory = factory)
+                val enviarAvisoViewModel: EnviarAvisoViewModel = viewModel(factory = factory)
                 val informesViewModel: InformesViewModel = viewModel(factory = factory)
                 val generarInformeViewModel: GenerarInformeViewModel = viewModel(factory = factory)
                 val usuariosViewModel: UsuariosViewModel = viewModel(factory = factory)
@@ -61,7 +63,7 @@ class MainActivity : ComponentActivity() {
                     authViewModel, navigationViewModel, reservasViewModel,
                     detalleReservaViewModel,
                     solicitudReservaViewModel, disponibilidadViewModel, finanzasViewModel,
-                    pagoViewModel, gastoViewModel, avisosViewModel, informesViewModel,
+                    pagoViewModel, gastoViewModel, avisosViewModel, enviarAvisoViewModel, informesViewModel,
                     generarInformeViewModel, usuariosViewModel,
                     usuarioFormularioViewModel, recintosViewModel, recintoFormularioViewModel,
                     rolesViewModel, tipoPantalla
