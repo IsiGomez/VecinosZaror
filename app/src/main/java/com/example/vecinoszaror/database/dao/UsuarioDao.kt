@@ -40,6 +40,15 @@ interface UsuarioDao {
     )
     suspend fun obtenerActivosPorRoles(nombresRol: List<String>): List<Usuario>
 
+    /** Usuarios activos cuyo rol tiene el permiso con ese código. */
+    @Query(
+        "SELECT usuario.* FROM usuario " +
+                "INNER JOIN rol_permiso ON usuario.rolId = rol_permiso.rolId " +
+                "INNER JOIN permiso ON rol_permiso.permisoId = permiso.id " +
+                "WHERE permiso.codigo = :codigoPermiso AND usuario.activo = 1"
+    )
+    suspend fun obtenerActivosConPermiso(codigoPermiso: String): List<Usuario>
+
     @Query("SELECT * FROM usuario ORDER BY apellido, nombre")
     fun observarTodos(): Flow<List<Usuario>>
 

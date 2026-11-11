@@ -40,6 +40,12 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
 
     suspend fun obtenerPorId(id: Long): Usuario? = usuarioDao.obtenerPorId(id)
 
+    suspend fun obtenerPorEmail(email: String): Usuario? =
+        usuarioDao.obtenerPorEmail(email.trim().lowercase())
+
+    suspend fun obtenerActivosConPermiso(codigoPermiso: String): List<Usuario> =
+        usuarioDao.obtenerActivosConPermiso(codigoPermiso)
+
     suspend fun obtenerActivosPorRoles(nombresRol: List<String>): List<Usuario> =
         usuarioDao.obtenerActivosPorRoles(nombresRol)
 
