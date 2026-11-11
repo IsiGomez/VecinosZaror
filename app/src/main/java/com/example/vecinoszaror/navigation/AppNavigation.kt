@@ -44,6 +44,7 @@ import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
 import com.example.vecinoszaror.viewmodel.InformesViewModel
+import com.example.vecinoszaror.viewmodel.OlvidoClaveViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
@@ -79,6 +80,7 @@ fun AppNavigation(
     recintoFormularioViewModel: RecintoFormularioViewModel,
     rolesViewModel: RolesViewModel,
     cambiarClaveViewModel: CambiarClaveViewModel,
+    olvidoClaveViewModel: OlvidoClaveViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -168,6 +170,7 @@ fun AppNavigation(
                 composable(Screen.Login.route) {
                     LoginScreen(
                         authViewModel = authViewModel,
+                        olvidoClaveViewModel = olvidoClaveViewModel,
                         tipoPantalla = tipoPantalla,
                         onLoginExitoso = {
                             /** La pantalla de inicio es la primera sección que permite el rol */

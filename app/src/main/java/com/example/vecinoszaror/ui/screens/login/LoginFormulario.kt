@@ -1,6 +1,8 @@
 package com.example.vecinoszaror.ui.screens.login
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,7 +14,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -32,6 +36,7 @@ fun LoginFormulario(
     onEmailChange: (String) -> Unit,
     onCLaveChange: (String) -> Unit,
     onIngresar: () -> Unit,
+    onOlvideClave: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
@@ -79,6 +84,12 @@ fun LoginFormulario(
             modifier = Modifier.fillMaxWidth()
         )
 
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            TextButton(onClick = onOlvideClave, enabled = !estado.cargando) {
+                Text("¿Olvidaste tu contraseña?")
+            }
+        }
+
         /** Error que no es de un campo */
         estado.errores.general?.let { mensaje ->
             Text(
@@ -103,6 +114,27 @@ fun LoginFormulario(
                 CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
             } else {
                 Text("Ingresar")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+        Surface(
+            color = MaterialTheme.colorScheme.secondaryContainer,
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = "Acceso restringido",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+                Text(
+                    text = "Solo pueden ingresar las personas registradas por la directiva de la Junta de Vecinos. " +
+                            "Si aún no tienes cuenta, pídela a la directiva.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
             }
         }
 
