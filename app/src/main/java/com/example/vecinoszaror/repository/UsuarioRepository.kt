@@ -40,6 +40,12 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
 
     suspend fun obtenerPorId(id: Long): Usuario? = usuarioDao.obtenerPorId(id)
 
+    suspend fun obtenerPorEmail(email: String): Usuario? =
+        usuarioDao.obtenerPorEmail(email.trim().lowercase())
+
+    suspend fun obtenerActivosConPermiso(codigoPermiso: String): List<Usuario> =
+        usuarioDao.obtenerActivosConPermiso(codigoPermiso)
+
     suspend fun obtenerActivosPorRoles(nombresRol: List<String>): List<Usuario> =
         usuarioDao.obtenerActivosPorRoles(nombresRol)
 
@@ -64,6 +70,22 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
         }
     }
 
+    /** Indica si la [clave] coincide con la guardada en la base para ese usuario. */
+    suspend fun claveCorrecta(usuarioId: Long, clave: String): Boolean {
+        val usuario = usuarioDao.obtenerPorId(usuarioId) ?: return false
+        return usuario.claveHash == hashClave(clave)
+    }
+
+    /**
+     * Cambia la clave de un usuario si [claveActual] es la correcta.
+     * Devuelve false si la clave actual no coincide.
+     */
+    suspend fun cambiarClave(usuarioId: Long, claveActual: String, claveNueva: String): Boolean {
+        val usuario = usuarioDao.obtenerPorId(usuarioId) ?: return false
+        if (usuario.claveHash != hashClave(claveActual)) return false
+        usuarioDao.actualizar(usuario.copy(claveHash = hashClave(claveNueva)))
+        return true
+    }
 
     private fun hashClave(clave: String): String =
         MessageDigest.getInstance("SHA-256")

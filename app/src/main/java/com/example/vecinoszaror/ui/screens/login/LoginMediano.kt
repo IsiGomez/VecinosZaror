@@ -25,7 +25,8 @@ fun LoginMediano(
     estado: LoginUiState,
     onEmailChange: (String) -> Unit,
     onClaveChange: (String) -> Unit,
-    onIngresar: () -> Unit
+    onIngresar: () -> Unit,
+    onOlvideClave: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -42,7 +43,7 @@ fun LoginMediano(
             ) {
                 EncabezadoLogin(tamanologo = 88.dp)
                 Spacer(modifier = Modifier.height(32.dp))
-                LoginFormulario(estado, onEmailChange, onClaveChange, onIngresar)
+                LoginFormulario(estado, onEmailChange, onClaveChange, onIngresar, onOlvideClave)
             }
         }
     }
@@ -51,5 +52,5 @@ fun LoginMediano(
 @Preview(name = "Mediana", showBackground = true, widthDp = 700, heightDp = 900)
 @Composable
 private fun LoginMedianoPreview() {
-    VecinosZarorTheme { LoginMediano(LoginUiState(), {}, {}, {})}
+    VecinosZarorTheme { LoginMediano(LoginUiState(), {}, {}, {}, {})}
 }

@@ -26,7 +26,8 @@ fun LoginCompacto(
     estado: LoginUiState,
     onEmailChange: (String) -> Unit,
     onClaveChange: (String) -> Unit,
-    onIngresar: () -> Unit
+    onIngresar: () -> Unit,
+    onOlvideClave: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -49,12 +50,12 @@ fun LoginCompacto(
             )
         }
         Spacer(modifier = Modifier.height(32.dp))
-        LoginFormulario(estado, onEmailChange, onClaveChange, onIngresar)
+        LoginFormulario(estado, onEmailChange, onClaveChange, onIngresar, onOlvideClave)
     }
 }
 
 @Preview(name = "Compacta", showBackground = true, widthDp = 360, heightDp = 740)
 @Composable
 private fun LoginCompactoPreview() {
-    VecinosZarorTheme { LoginCompacto(LoginUiState(), {}, {}, {}) }
+    VecinosZarorTheme { LoginCompacto(LoginUiState(), {}, {}, {}, {}) }
 }

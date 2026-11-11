@@ -30,7 +30,8 @@ fun LoginExpandido(
     estado: LoginUiState,
     onEmailChange: (String) -> Unit,
     onClaveChange: (String) -> Unit,
-    onIngresar: () -> Unit
+    onIngresar: () -> Unit,
+    onOlvideClave: () -> Unit
 ) {
     Row(modifier = Modifier.fillMaxSize()) {
         Box(
@@ -67,6 +68,7 @@ fun LoginExpandido(
                 onEmailChange = onEmailChange,
                 onCLaveChange = onClaveChange,
                 onIngresar = onIngresar,
+                onOlvideClave = onOlvideClave,
                 modifier = Modifier.fillMaxWidth().widthIn(max = 420.dp)
             )
         }
@@ -76,5 +78,5 @@ fun LoginExpandido(
 @Preview(name = "Expandida", showBackground = true, widthDp = 1100, heightDp = 700)
 @Composable
 private fun LoginExpandidoPreview() {
-    VecinosZarorTheme { LoginExpandido(LoginUiState(), {}, {}, {}) }
+    VecinosZarorTheme { LoginExpandido(LoginUiState(), {}, {}, {}, {}) }
 }

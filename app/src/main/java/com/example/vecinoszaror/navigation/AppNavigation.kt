@@ -26,6 +26,8 @@ import com.example.vecinoszaror.ui.screens.finanzas.RegistrarPagoScreen
 import com.example.vecinoszaror.ui.screens.informes.GenerarInformeScreen
 import com.example.vecinoszaror.ui.screens.informes.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
+import com.example.vecinoszaror.ui.screens.perfil.CambiarClaveScreen
+import com.example.vecinoszaror.ui.screens.perfil.PerfilScreen
 import com.example.vecinoszaror.ui.screens.reservas.DetalleReservaScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
 import com.example.vecinoszaror.ui.screens.reservas.ReservasScreen
@@ -34,6 +36,7 @@ import com.example.vecinoszaror.ui.utils.TipoPantalla
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.viewmodel.AuthViewModel
 import com.example.vecinoszaror.viewmodel.AvisosViewModel
+import com.example.vecinoszaror.viewmodel.CambiarClaveViewModel
 import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.EnviarAvisoViewModel
@@ -41,6 +44,7 @@ import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
 import com.example.vecinoszaror.viewmodel.InformesViewModel
+import com.example.vecinoszaror.viewmodel.OlvidoClaveViewModel
 import com.example.vecinoszaror.viewmodel.NavigationViewModel
 import com.example.vecinoszaror.viewmodel.PagoViewModel
 import com.example.vecinoszaror.viewmodel.RecintoFormularioViewModel
@@ -75,6 +79,8 @@ fun AppNavigation(
     recintosViewModel: RecintosViewModel,
     recintoFormularioViewModel: RecintoFormularioViewModel,
     rolesViewModel: RolesViewModel,
+    cambiarClaveViewModel: CambiarClaveViewModel,
+    olvidoClaveViewModel: OlvidoClaveViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -85,11 +91,16 @@ fun AppNavigation(
     LaunchedEffect(navController) {
         navigationViewModel.eventos.collect { evento ->
             when (evento) {
-                is NavigationEvent.IrA -> navController.navigate(evento.destino.route) {
-                    evento.limpiarHasta?.let { pantalla ->
-                        popUpTo(pantalla.route) { inclusive = evento.incluirEsaPantalla }
+                is NavigationEvent.IrA -> {
+                    if (evento.evitarDuplicados && navController.currentDestination?.route == evento.destino.route) {
+                        return@collect
                     }
-                    launchSingleTop = evento.evitarDuplicados
+                    navController.navigate(evento.destino.route) {
+                        evento.limpiarHasta?.let { pantalla ->
+                            popUpTo(pantalla.route) { inclusive = evento.incluirEsaPantalla }
+                        }
+                        launchSingleTop = evento.evitarDuplicados
+                    }
                 }
 
                 is NavigationEvent.IrALimpiandoHistorial -> navController.navigate(evento.destino.route) {
@@ -121,6 +132,7 @@ fun AppNavigation(
                 BarraSuperior(
                     nombre = sesion.usuario.nombre,
                     rol = sesion.nombreRol,
+                    onVerPerfil = { navigationViewModel.irA(Screen.Perfil, evitarDuplicados = true) },
                     onCerrarSesion = {
                         authViewModel.cerrarSesion()
                         navigationViewModel.irALimpiandoHistorial(Screen.Login)
@@ -158,6 +170,7 @@ fun AppNavigation(
                 composable(Screen.Login.route) {
                     LoginScreen(
                         authViewModel = authViewModel,
+                        olvidoClaveViewModel = olvidoClaveViewModel,
                         tipoPantalla = tipoPantalla,
                         onLoginExitoso = {
                             /** La pantalla de inicio es la primera sección que permite el rol */
@@ -260,7 +273,10 @@ fun AppNavigation(
                         AvisosScreen(
                             viewModel = avisosViewModel,
                             sesion = sesion,
-                            onEnviarAviso = { navigationViewModel.irA(Screen.EnviarAviso, evitarDuplicados = true) }
+                            onEnviarAviso = {
+                                enviarAvisoViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.EnviarAviso, evitarDuplicados = true)
+                            }
                         )
                     }
                 }
@@ -268,6 +284,27 @@ fun AppNavigation(
                     if (sesion != null && sesion.tienePermiso(Permisos.AVISO_ENVIAR)) {
                         EnviarAvisoScreen(
                             viewModel = enviarAvisoViewModel,
+                            sesion = sesion,
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
+                }
+                composable(Screen.Perfil.route) {
+                    if (sesion != null) {
+                        PerfilScreen(
+                            sesion = sesion,
+                            onCambiarClave = {
+                                cambiarClaveViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.CambiarClave, evitarDuplicados = true)
+                            },
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
+                }
+                composable(Screen.CambiarClave.route) {
+                    if (sesion != null) {
+                        CambiarClaveScreen(
+                            viewModel = cambiarClaveViewModel,
                             sesion = sesion,
                             onVolver = { navigationViewModel.volver() }
                         )

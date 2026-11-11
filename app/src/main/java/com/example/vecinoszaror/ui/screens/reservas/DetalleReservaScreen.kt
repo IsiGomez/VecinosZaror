@@ -32,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vecinoszaror.model.DetalleReservaUiState
@@ -42,6 +41,7 @@ import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.ui.components.ContenidoCargando
 import com.example.vecinoszaror.ui.components.EstadoVacio
+import com.example.vecinoszaror.ui.components.FilaDato
 import com.example.vecinoszaror.ui.components.Tarjeta
 import com.example.vecinoszaror.ui.utils.etiqueta
 import com.example.vecinoszaror.ui.utils.formatearFechaHora
@@ -260,29 +260,6 @@ private fun TarjetaSeguimiento(pasos: List<PasoSeguimiento>) {
         }
     }
 }
-
-@Composable
-private fun FilaDato(etiqueta: String, valor: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = etiqueta,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Text(
-            text = valor,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 16.dp),
-            textAlign = TextAlign.End
-        )
-    }
-}
-
 
 /** Arma los pasos según el estado de la reserva y de su pago. */
 private fun pasosDeSeguimiento(estado: DetalleReservaUiState): List<PasoSeguimiento> {

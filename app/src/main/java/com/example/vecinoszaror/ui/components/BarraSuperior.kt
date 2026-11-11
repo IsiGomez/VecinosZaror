@@ -3,8 +3,13 @@ package com.example.vecinoszaror.ui.components
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -20,6 +25,7 @@ import androidx.core.view.WindowCompat
 fun BarraSuperior(
     nombre: String,
     rol: String,
+    onVerPerfil: () -> Unit,
     onCerrarSesion: () -> Unit
 ) {
     val vista = LocalView.current
@@ -40,6 +46,12 @@ fun BarraSuperior(
             }
         },
         actions = {
+            IconButton(
+                onClick = onVerPerfil,
+                colors = IconButtonDefaults.iconButtonColors(contentColor = colores.onSecondary)
+            ) {
+                Icon(imageVector = Icons.Filled.AccountCircle, contentDescription = "Mi perfil")
+            }
             TextButton(
                 onClick = onCerrarSesion,
                 colors = ButtonDefaults.textButtonColors(contentColor = colores.onSecondary)
