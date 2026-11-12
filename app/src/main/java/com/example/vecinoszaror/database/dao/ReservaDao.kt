@@ -58,10 +58,6 @@ abstract class ReservaDao {
     @Query("SELECT * FROM reserva ORDER BY fechaHoraInicio DESC")
     abstract fun observarTodas(): Flow<List<ReservaConDetalle>>
 
-    @Transaction
-    @Query("SELECT * FROM reserva WHERE estado = :estado ORDER BY fechaHoraInicio")
-    abstract fun observarPorEstado(estado: EstadoReserva): Flow<List<ReservaConDetalle>>
-
     /** Reservas que tocan el rango [desde, hasta). */
     @Transaction
     @Query(

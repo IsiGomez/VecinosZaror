@@ -70,9 +70,6 @@ class FinanzasRepository(private val db: AppDatabase) {
     // --- Gastos ---
     fun observarGastos(): Flow<List<Gasto>> = gastoDao.observarTodos()
 
-    fun observarGastosPorCategoria(categoria: CategoriaGasto): Flow<List<Gasto>> =
-        gastoDao.observarPorCategoria(categoria)
-
     fun observarTotalGastos(): Flow<Long> = gastoDao.observarTotalGastos()
 
     suspend fun registrarGasto(

@@ -19,8 +19,6 @@ class RolPermisoRepository(
 
     fun observarPermisos(): Flow<List<Permiso>> = permisoDao.observarTodos()
 
-    fun observarPermisosDeRol(rolId: Long): Flow<List<Permiso>> = permisoDao.observarPermisosDeRol(rolId)
-
     suspend fun obtenerRolConPermisos(rolId: Long): RolConPermisos? = rolDao.obtenerConPermisos(rolId)
 
     /** ¿El rol tiene el permiso? Ej: puede(rolId, "PAGO_REGISTRAR"). */

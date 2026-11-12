@@ -22,14 +22,8 @@ class ReservaRepository(private val db: AppDatabase) {
     fun observarPorUsuario(usuarioId: Long): Flow<List<ReservaConDetalle>> =
         reservaDao.observarPorUsuario(usuarioId)
 
-    fun observarPorEstado(estado: EstadoReserva): Flow<List<ReservaConDetalle>> =
-        reservaDao.observarPorEstado(estado)
-
     fun observarOcupacion(recintoId: Long, desde: Long, hasta: Long): Flow<List<ReservaConDetalle>> =
         reservaDao.observarOcupacion(recintoId, desde, hasta)
-
-    suspend fun estaDisponible(recintoId: Long, inicio: Long, fin: Long): Boolean =
-        reservaDao.contarConflictos(recintoId, inicio, fin) == 0
 
     /**
      * Crea una solicitud PENDIENTE si los datos son válidos, el recinto está activo,

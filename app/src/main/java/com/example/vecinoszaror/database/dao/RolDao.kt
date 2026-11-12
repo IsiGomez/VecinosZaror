@@ -21,9 +21,6 @@ interface RolDao {
     @Query("SELECT * FROM rol WHERE id = :id")
     suspend fun obtenerPorId(id: Long): Rol?
 
-    @Query("SELECT * FROM rol WHERE nombre = :nombre")
-    suspend fun obtenerPorNombre(nombre: String): Rol?
-
     @Transaction
     @Query("SELECT * FROM rol WHERE id = :id")
     suspend fun obtenerConPermisos(id: Long): RolConPermisos?

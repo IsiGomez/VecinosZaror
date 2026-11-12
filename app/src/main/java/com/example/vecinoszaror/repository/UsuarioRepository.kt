@@ -3,17 +3,12 @@ package com.example.vecinoszaror.repository
 import android.database.sqlite.SQLiteConstraintException
 import com.example.vecinoszaror.database.dao.UsuarioDao
 import com.example.vecinoszaror.model.Usuario
-import com.example.vecinoszaror.model.UsuarioConRol
 import kotlinx.coroutines.flow.Flow
 import java.security.MessageDigest
 
 class UsuarioRepository(private val usuarioDao: UsuarioDao) {
 
     fun observarUsuarios(): Flow<List<Usuario>> = usuarioDao.observarTodos()
-
-    fun observarPorRol(rolId: Long): Flow<List<Usuario>> = usuarioDao.observarPorRol(rolId)
-
-    suspend fun obtenerConRol(id: Long): UsuarioConRol? = usuarioDao.obtenerConRol(id)
 
     /** Devuelve el usuario, o null si la clave es incorrecta o está inactivo. */
     suspend fun iniciarSesion(email: String, clave: String): Usuario? =
