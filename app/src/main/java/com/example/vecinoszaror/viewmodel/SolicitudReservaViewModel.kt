@@ -3,7 +3,7 @@ package com.example.vecinoszaror.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.SesionUsuario
-import com.example.vecinoszaror.model.SolicitudErrores
+import com.example.vecinoszaror.model.SolicitudReservaErrores
 import com.example.vecinoszaror.model.SolicitudReservaUiState
 import com.example.vecinoszaror.repository.RecintoRepository
 import com.example.vecinoszaror.repository.ReservaRepository
@@ -114,7 +114,7 @@ class SolicitudReservaViewModel(
     }
 
     /** Revisa cada campo y devuelve los mensajes de error (vacío si todo está bien). */
-    private fun validar(datos: SolicitudReservaUiState): SolicitudErrores {
+    private fun validar(datos: SolicitudReservaUiState): SolicitudReservaErrores {
         val recinto = datos.recintos.firstOrNull { it.id == datos.recintoId }
         val numeroAsistentes = datos.asistentes.toIntOrNull()
         val fecha = datos.fecha
@@ -143,7 +143,7 @@ class SolicitudReservaViewModel(
             else -> null
         }
 
-        return SolicitudErrores(
+        return SolicitudReservaErrores(
             recinto = errorRecinto,
             fecha = errorFecha,
             horaInicio = errorHoraInicio,

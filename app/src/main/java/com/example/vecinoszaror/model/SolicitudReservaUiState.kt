@@ -1,6 +1,6 @@
 package com.example.vecinoszaror.model
 
-data class SolicitudErrores(
+data class SolicitudReservaErrores(
     val recinto: String? = null,
     val fecha: String? = null,
     val horaInicio: String? = null,
@@ -27,5 +27,5 @@ data class SolicitudReservaUiState(
     /** Se convierte a número al validar. */
     val asistentes: String = "",
     val enviando: Boolean = false,
-    val errores: SolicitudErrores = SolicitudErrores()
+    val errores: SolicitudReservaErrores = SolicitudReservaErrores()
 )
