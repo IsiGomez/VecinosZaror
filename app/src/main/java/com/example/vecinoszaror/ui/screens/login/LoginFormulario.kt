@@ -34,7 +34,7 @@ import com.example.vecinoszaror.model.LoginUiState
 fun LoginFormulario(
     estado: LoginUiState,
     onEmailChange: (String) -> Unit,
-    onCLaveChange: (String) -> Unit,
+    onClaveChange: (String) -> Unit,
     onIngresar: () -> Unit,
     onOlvideClave: () -> Unit,
     modifier: Modifier = Modifier
@@ -64,7 +64,7 @@ fun LoginFormulario(
         /** Clave */
         OutlinedTextField(
             value = estado.clave,
-            onValueChange = onCLaveChange,
+            onValueChange = onClaveChange,
             label = { Text("Clave")},
             singleLine = true,
             enabled = !estado.cargando,

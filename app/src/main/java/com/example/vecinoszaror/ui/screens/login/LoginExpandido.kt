@@ -43,7 +43,7 @@ fun LoginExpandido(
             contentAlignment = Alignment.Center
         ) {
             EncabezadoLogin(
-                tamanologo = 120.dp,
+                tamanoLogo = 120.dp,
                 colorTexto = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
@@ -66,7 +66,7 @@ fun LoginExpandido(
             LoginFormulario(
                 estado = estado,
                 onEmailChange = onEmailChange,
-                onCLaveChange = onClaveChange,
+                onClaveChange = onClaveChange,
                 onIngresar = onIngresar,
                 onOlvideClave = onOlvideClave,
                 modifier = Modifier.fillMaxWidth().widthIn(max = 420.dp)

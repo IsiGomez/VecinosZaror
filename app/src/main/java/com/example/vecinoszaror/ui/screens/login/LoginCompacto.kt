@@ -45,7 +45,7 @@ fun LoginCompacto(
             contentAlignment = Alignment.Center
         ) {
             EncabezadoLogin(
-                tamanologo = 96.dp,
+                tamanoLogo = 96.dp,
                 colorTexto = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }

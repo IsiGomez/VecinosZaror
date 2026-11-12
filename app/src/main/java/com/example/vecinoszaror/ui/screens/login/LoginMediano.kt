@@ -41,7 +41,7 @@ fun LoginMediano(
                 modifier = Modifier.padding(32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                EncabezadoLogin(tamanologo = 88.dp)
+                EncabezadoLogin(tamanoLogo = 88.dp)
                 Spacer(modifier = Modifier.height(32.dp))
                 LoginFormulario(estado, onEmailChange, onClaveChange, onIngresar, onOlvideClave)
             }
