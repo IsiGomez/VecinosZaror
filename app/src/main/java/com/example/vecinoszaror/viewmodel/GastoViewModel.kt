@@ -77,7 +77,7 @@ class GastoViewModel(
                     it.copy(enviando = false, errores = it.errores.copy(general = "No se pudo registrar el gasto."))
                 }
             } else {
-                reiniciar()
+                _estado.update { it.copy(enviando = false) }
                 _gastoRegistrado.send(Unit)
             }
         }

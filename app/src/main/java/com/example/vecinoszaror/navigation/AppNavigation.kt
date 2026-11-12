@@ -189,7 +189,10 @@ fun AppNavigation(
                         ReservasScreen(
                             viewModel = reservasViewModel,
                             sesion = sesion,
-                            onSolicitarReserva = { navigationViewModel.irA(Screen.SolicitudReserva) },
+                            onSolicitarReserva = {
+                                solicitudReservaViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.SolicitudReserva)
+                            },
                             onVerDisponibilidad = { navigationViewModel.irA(Screen.Disponibilidad) },
                             onVerDetalle = { reservaId ->
                                 /** Primero se le dice al ViewModel qué reserva, luego se navega */
@@ -230,8 +233,14 @@ fun AppNavigation(
                         FinanzasScreen(
                             viewModel = finanzasViewModel,
                             sesion = sesion,
-                            onRegistrarPago = { navigationViewModel.irA(Screen.RegistrarPago) },
-                            onRegistrarGasto = { navigationViewModel.irA(Screen.RegistrarGasto) }
+                            onRegistrarPago = {
+                                pagoViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.RegistrarPago)
+                            },
+                            onRegistrarGasto = {
+                                gastoViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.RegistrarGasto)
+                            }
                         )
                     }
                 }
@@ -258,7 +267,10 @@ fun AppNavigation(
                         InformesScreen(
                             viewModel = informesViewModel,
                             sesion = sesion,
-                            onGenerarInforme = { navigationViewModel.irA(Screen.GenerarInforme) }
+                            onGenerarInforme = {
+                                generarInformeViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.GenerarInforme)
+                            }
                         )
                     }
                 }

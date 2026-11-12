@@ -78,7 +78,7 @@ class GenerarInformeViewModel(
                 generadoPorId = sesion.usuario.id,
                 observaciones = datos.observaciones.trim().takeIf { it.isNotEmpty() }
             )
-            reiniciar()
+            _estado.update { it.copy(enviando = false) }
             _informeGenerado.send(Unit)
         }
     }

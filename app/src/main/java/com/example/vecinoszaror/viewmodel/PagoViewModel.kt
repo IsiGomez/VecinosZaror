@@ -153,7 +153,7 @@ class PagoViewModel(
                     )
                 }
             } else {
-                reiniciar()
+                _estado.update { it.copy(enviando = false) }
                 _pagoRegistrado.send(Unit)
             }
         }

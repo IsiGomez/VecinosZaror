@@ -174,10 +174,7 @@ fun SolicitudReservaScreen(
                 }
             }
             TextButton(
-                onClick = {
-                    viewModel.reiniciar()
-                    onVolver()
-                },
+                onClick = onVolver,
                 enabled = !estado.enviando,
                 modifier = Modifier.fillMaxWidth()
             ) {

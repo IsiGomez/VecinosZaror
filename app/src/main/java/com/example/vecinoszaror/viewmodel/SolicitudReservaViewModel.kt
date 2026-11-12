@@ -97,7 +97,7 @@ class SolicitudReservaViewModel(
             )
             when (resultado) {
                 is ResultadoSolicitud.Creada -> {
-                    reiniciar()
+                    _estado.update { it.copy(enviando = false) }
                     _reservaCreada.send(Unit)
                 }
                 ResultadoSolicitud.DatosInvalidos -> mostrarErrorGeneral("Revisa los datos ingresados")
