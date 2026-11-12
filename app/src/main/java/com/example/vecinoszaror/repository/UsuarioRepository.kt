@@ -87,6 +87,21 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
         return true
     }
 
+    /**
+     * Guarda los datos personales de un usuario (no toca correo, clave, rol ni estado).
+     * Devuelve el usuario ya actualizado, o null si no existe.
+     */
+    suspend fun actualizarPerfil(usuarioId: Long, nombre: String, apellido: String, telefono: String?): Usuario? {
+        val usuario = usuarioDao.obtenerPorId(usuarioId) ?: return null
+        val actualizado = usuario.copy(
+            nombre = nombre.trim(),
+            apellido = apellido.trim(),
+            telefono = telefono?.trim()?.takeIf { it.isNotEmpty() }
+        )
+        usuarioDao.actualizar(actualizado)
+        return actualizado
+    }
+
     private fun hashClave(clave: String): String =
         MessageDigest.getInstance("SHA-256")
             .digest(clave.toByteArray(Charsets.UTF_8))

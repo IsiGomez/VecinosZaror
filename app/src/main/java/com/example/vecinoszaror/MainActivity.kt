@@ -18,6 +18,7 @@ import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GenerarInformeViewModel
+import com.example.vecinoszaror.viewmodel.EditarPerfilViewModel
 import com.example.vecinoszaror.viewmodel.EnviarAvisoViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
 import com.example.vecinoszaror.viewmodel.InformesViewModel
@@ -62,6 +63,7 @@ class MainActivity : ComponentActivity() {
                 val rolesViewModel: RolesViewModel = viewModel(factory = factory)
                 val cambiarClaveViewModel: CambiarClaveViewModel = viewModel(factory = factory)
                 val olvidoClaveViewModel: OlvidoClaveViewModel = viewModel(factory = factory)
+                val editarPerfilViewModel: EditarPerfilViewModel = viewModel(factory = factory)
                 val tipoPantalla = calculateWindowSizeClass(this).tipoPantalla()
                 AppNavigation(
                     authViewModel, navigationViewModel, reservasViewModel,
@@ -70,7 +72,7 @@ class MainActivity : ComponentActivity() {
                     pagoViewModel, gastoViewModel, avisosViewModel, enviarAvisoViewModel, informesViewModel,
                     generarInformeViewModel, usuariosViewModel,
                     usuarioFormularioViewModel, recintosViewModel, recintoFormularioViewModel,
-                    rolesViewModel, cambiarClaveViewModel, olvidoClaveViewModel, tipoPantalla
+                    rolesViewModel, cambiarClaveViewModel, olvidoClaveViewModel, editarPerfilViewModel, tipoPantalla
                 )
             }
         }
