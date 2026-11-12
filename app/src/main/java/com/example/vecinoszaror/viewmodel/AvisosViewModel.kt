@@ -26,6 +26,13 @@ class AvisosViewModel(
     private var sesionCargada: SesionUsuario? = null
     private var usuarioId: Long? = null
 
+    /** Se llama al iniciar sesión */
+    fun reiniciar() {
+        tareaEscucha?.cancel()
+        sesionCargada = null
+        _estado.value = AvisosUiState()
+    }
+
     /** Empieza a observar los avisos de este usuario. */
     fun cargar(sesion: SesionUsuario) {
         if (sesion == sesionCargada) return

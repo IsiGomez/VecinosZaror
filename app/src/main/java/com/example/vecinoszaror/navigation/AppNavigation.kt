@@ -176,6 +176,11 @@ fun AppNavigation(
                         olvidoClaveViewModel = olvidoClaveViewModel,
                         tipoPantalla = tipoPantalla,
                         onLoginExitoso = {
+                            avisosViewModel.reiniciar()
+                            reservasViewModel.reiniciar()
+                            informesViewModel.reiniciar()
+                            finanzasViewModel.reiniciar()
+
                             /** La pantalla de inicio es la primera sección que permite el rol */
                             val inicio = authViewModel.sesion.value
                                 ?.let { opcionesDeMenu(it.permisos).first().pantalla }

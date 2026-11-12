@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.InformeFinanciero
 import com.example.vecinoszaror.model.InformesUiState
 import com.example.vecinoszaror.model.Permisos
+import com.example.vecinoszaror.model.ReservasUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository
 import kotlinx.coroutines.Job
@@ -26,6 +27,13 @@ class InformesViewModel(
 
     // Sesión ya cargada: evita reiniciar la pantalla cada vez que se vuelve a ella
     private var sesionCargada: SesionUsuario? = null
+
+    /** Se llama al iniciar sesión */
+    fun reiniciar() {
+        tareaEscucha?.cancel()
+        sesionCargada = null
+        _estado.value = InformesUiState()
+    }
 
     /** Empieza a observar los informes que le corresponden al rol. */
     fun cargar(sesion: SesionUsuario) {

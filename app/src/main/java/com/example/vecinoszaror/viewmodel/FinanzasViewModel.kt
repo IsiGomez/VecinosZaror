@@ -8,6 +8,7 @@ import com.example.vecinoszaror.model.Gasto
 import com.example.vecinoszaror.model.Pago
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.Recinto
+import com.example.vecinoszaror.model.ReservasUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository
 import com.example.vecinoszaror.repository.ReservaRepository
@@ -41,6 +42,13 @@ class FinanzasViewModel(
         val totalGastos: Long,
         val recintoPorReserva: Map<Long, Recinto>
     )
+
+    /** Se llama al iniciar sesión */
+    fun reiniciar() {
+        tareaEscucha?.cancel()
+        sesionCargada = null
+        _estado.value = FinanzasUiState()
+    }
 
     /** Empieza a observar las finanzas y deja anotado qué acciones permite el rol. */
     fun cargar(sesion: SesionUsuario) {
