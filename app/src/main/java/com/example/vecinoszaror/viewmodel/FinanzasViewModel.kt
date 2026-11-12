@@ -3,12 +3,11 @@ package com.example.vecinoszaror.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.CategoriaGasto
-import com.example.vecinoszaror.model.FinanzasUiState
+import com.example.vecinoszaror.model.uistate.FinanzasUiState
 import com.example.vecinoszaror.model.Gasto
 import com.example.vecinoszaror.model.Pago
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.Recinto
-import com.example.vecinoszaror.model.ReservasUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository
 import com.example.vecinoszaror.repository.ReservaRepository

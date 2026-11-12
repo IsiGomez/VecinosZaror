@@ -1,4 +1,8 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.EstadoPago
+import com.example.vecinoszaror.model.EstadoReserva
+import com.example.vecinoszaror.model.ReservaConDetalle
 
 /** Estado de la pantalla con el detalle de una reserva. */
 data class DetalleReservaUiState(
@@ -12,9 +16,6 @@ data class DetalleReservaUiState(
     val puedeCancelar: Boolean = false,
     val cargando: Boolean = true
 ) {
-    val noEncontrada: Boolean
-        get() = !cargando && detalle == null
-
     /** Lo que falta por pagar. */
     val pendiente: Long
         get() = ((detalle?.reserva?.montoTotal ?: 0L) - pagado).coerceAtLeast(0)

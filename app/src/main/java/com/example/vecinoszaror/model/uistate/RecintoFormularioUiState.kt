@@ -1,4 +1,4 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
 
 data class RecintoFormularioErrores(
     val nombre: String? = null,

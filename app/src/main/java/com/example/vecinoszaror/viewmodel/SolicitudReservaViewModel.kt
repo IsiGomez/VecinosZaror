@@ -3,8 +3,8 @@ package com.example.vecinoszaror.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.SesionUsuario
-import com.example.vecinoszaror.model.SolicitudReservaErrores
-import com.example.vecinoszaror.model.SolicitudReservaUiState
+import com.example.vecinoszaror.model.uistate.SolicitudReservaErrores
+import com.example.vecinoszaror.model.uistate.SolicitudReservaUiState
 import com.example.vecinoszaror.repository.RecintoRepository
 import com.example.vecinoszaror.repository.ReservaRepository
 import com.example.vecinoszaror.repository.ResultadoSolicitud

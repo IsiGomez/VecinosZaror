@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.model.Usuario
-import com.example.vecinoszaror.model.UsuarioFormularioErrores
-import com.example.vecinoszaror.model.UsuarioFormularioUiState
+import com.example.vecinoszaror.model.uistate.UsuarioFormularioErrores
+import com.example.vecinoszaror.model.uistate.UsuarioFormularioUiState
 import com.example.vecinoszaror.repository.RolPermisoRepository
 import com.example.vecinoszaror.repository.UsuarioRepository
 import kotlinx.coroutines.flow.MutableStateFlow

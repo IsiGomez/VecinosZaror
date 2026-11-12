@@ -2,8 +2,8 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.EditarPerfilErrores
-import com.example.vecinoszaror.model.EditarPerfilUiState
+import com.example.vecinoszaror.model.uistate.EditarPerfilErrores
+import com.example.vecinoszaror.model.uistate.EditarPerfilUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.model.Usuario
 import com.example.vecinoszaror.repository.UsuarioRepository

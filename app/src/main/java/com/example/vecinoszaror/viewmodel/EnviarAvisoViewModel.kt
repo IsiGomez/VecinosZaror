@@ -3,8 +3,8 @@ package com.example.vecinoszaror.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.Destinatario
-import com.example.vecinoszaror.model.EnviarAvisoErrores
-import com.example.vecinoszaror.model.EnviarAvisoUiState
+import com.example.vecinoszaror.model.uistate.EnviarAvisoErrores
+import com.example.vecinoszaror.model.uistate.EnviarAvisoUiState
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.NotificacionRepository

@@ -3,9 +3,8 @@ package com.example.vecinoszaror.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.InformeFinanciero
-import com.example.vecinoszaror.model.InformesUiState
+import com.example.vecinoszaror.model.uistate.InformesUiState
 import com.example.vecinoszaror.model.Permisos
-import com.example.vecinoszaror.model.ReservasUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository
 import kotlinx.coroutines.Job

@@ -1,4 +1,6 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.ReservaConDetalle
 
 /** Estado de la lista de reservas */
 data class ReservasUiState(

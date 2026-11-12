@@ -29,7 +29,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vecinoszaror.model.Destinatario
-import com.example.vecinoszaror.model.EnviarAvisoUiState
+import com.example.vecinoszaror.model.uistate.EnviarAvisoUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.ui.components.Tarjeta
 import com.example.vecinoszaror.ui.screens.reservas.TextoError

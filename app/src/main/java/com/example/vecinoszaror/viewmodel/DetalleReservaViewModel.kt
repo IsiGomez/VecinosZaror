@@ -2,7 +2,7 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.DetalleReservaUiState
+import com.example.vecinoszaror.model.uistate.DetalleReservaUiState
 import com.example.vecinoszaror.model.EstadoReserva
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario

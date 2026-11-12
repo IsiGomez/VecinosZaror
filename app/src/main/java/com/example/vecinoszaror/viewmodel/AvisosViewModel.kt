@@ -2,7 +2,7 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.AvisosUiState
+import com.example.vecinoszaror.model.uistate.AvisosUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.NotificacionRepository
 import kotlinx.coroutines.Job

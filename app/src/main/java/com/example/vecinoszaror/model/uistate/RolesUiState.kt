@@ -1,4 +1,7 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.Permiso
+import com.example.vecinoszaror.model.RolConPermisos
 
 /** Estado de roles: cada rol con sus permisos y la lista completa de permisos. */
 data class RolesUiState(

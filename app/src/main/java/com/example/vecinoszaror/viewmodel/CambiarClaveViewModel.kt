@@ -2,8 +2,8 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.CambiarClaveErrores
-import com.example.vecinoszaror.model.CambiarClaveUiState
+import com.example.vecinoszaror.model.uistate.CambiarClaveErrores
+import com.example.vecinoszaror.model.uistate.CambiarClaveUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.UsuarioRepository
 import kotlinx.coroutines.flow.MutableStateFlow

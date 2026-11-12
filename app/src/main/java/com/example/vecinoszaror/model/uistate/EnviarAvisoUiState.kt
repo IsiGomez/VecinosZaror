@@ -1,4 +1,6 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.Destinatario
 
 data class EnviarAvisoErrores(
     val titulo: String? = null,

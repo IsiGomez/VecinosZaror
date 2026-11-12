@@ -26,7 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.vecinoszaror.model.LoginUiState
+import com.example.vecinoszaror.model.uistate.LoginUiState
 
 
 /** Compo y botón del login */

@@ -4,8 +4,8 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.CategoriaGasto
-import com.example.vecinoszaror.model.GastoErrores
-import com.example.vecinoszaror.model.GastoUiState
+import com.example.vecinoszaror.model.uistate.GastoErrores
+import com.example.vecinoszaror.model.uistate.GastoUiState
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository

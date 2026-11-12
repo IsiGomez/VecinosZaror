@@ -1,4 +1,9 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.CategoriaGasto
+import com.example.vecinoszaror.model.Gasto
+import com.example.vecinoszaror.model.Pago
+import com.example.vecinoszaror.model.Recinto
 
 /** Estado de la pantalla de finanzas: totales, movimientos, filtros y qué acciones permite el rol. */
 data class FinanzasUiState(

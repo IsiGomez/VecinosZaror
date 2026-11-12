@@ -1,6 +1,7 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
 
 import android.net.Uri
+import com.example.vecinoszaror.model.CategoriaGasto
 
 data class GastoErrores(
     val descripcion: String? = null,

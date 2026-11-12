@@ -2,8 +2,8 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.GenerarInformeErrores
-import com.example.vecinoszaror.model.GenerarInformeUiState
+import com.example.vecinoszaror.model.uistate.GenerarInformeErrores
+import com.example.vecinoszaror.model.uistate.GenerarInformeUiState
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository

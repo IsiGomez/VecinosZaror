@@ -1,6 +1,9 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
 
 import android.net.Uri
+import com.example.vecinoszaror.model.MetodoPago
+import com.example.vecinoszaror.model.Recinto
+import com.example.vecinoszaror.model.ReservaConDetalle
 
 data class PagoErrores(
     val reserva: String? = null,
