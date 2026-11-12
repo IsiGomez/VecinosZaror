@@ -1,4 +1,7 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.Recinto
+import com.example.vecinoszaror.model.ReservaConDetalle
 
 /** Estado de la consulta de disponibilidad de un recinto en un día. */
 data class DisponibilidadUiState(

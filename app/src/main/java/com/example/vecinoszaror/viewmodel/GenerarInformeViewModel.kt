@@ -2,8 +2,8 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.GenerarInformeErrores
-import com.example.vecinoszaror.model.GenerarInformeUiState
+import com.example.vecinoszaror.model.uistate.GenerarInformeErrores
+import com.example.vecinoszaror.model.uistate.GenerarInformeUiState
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository
@@ -78,7 +78,7 @@ class GenerarInformeViewModel(
                 generadoPorId = sesion.usuario.id,
                 observaciones = datos.observaciones.trim().takeIf { it.isNotEmpty() }
             )
-            reiniciar()
+            _estado.update { it.copy(enviando = false) }
             _informeGenerado.send(Unit)
         }
     }

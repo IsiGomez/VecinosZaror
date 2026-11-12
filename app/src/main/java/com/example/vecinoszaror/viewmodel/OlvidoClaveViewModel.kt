@@ -2,7 +2,7 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.OlvidoClaveUiState
+import com.example.vecinoszaror.model.uistate.OlvidoClaveUiState
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.repository.NotificacionRepository
 import com.example.vecinoszaror.repository.UsuarioRepository

@@ -1,4 +1,7 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.Rol
+import com.example.vecinoszaror.model.Usuario
 
 /** Estado de la lista de usuarios de la pantalla de administración. */
 data class UsuariosUiState(

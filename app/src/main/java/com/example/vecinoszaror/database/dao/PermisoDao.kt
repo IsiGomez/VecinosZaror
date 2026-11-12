@@ -25,16 +25,6 @@ interface PermisoDao {
     @Query("DELETE FROM rol_permiso WHERE rolId = :rolId AND permisoId = :permisoId")
     suspend fun quitar(rolId: Long, permisoId: Long)
 
-    @Query(
-        """
-        SELECT p.* FROM permiso p
-        INNER JOIN rol_permiso rp ON rp.permisoId = p.id
-        WHERE rp.rolId = :rolId
-        ORDER BY p.modulo, p.codigo
-        """
-    )
-    fun observarPermisosDeRol(rolId: Long): Flow<List<Permiso>>
-
     /** true si el rol tiene el permiso indicado. */
     @Query(
         """

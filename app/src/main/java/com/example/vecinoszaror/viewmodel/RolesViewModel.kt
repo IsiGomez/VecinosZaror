@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.Permiso
 import com.example.vecinoszaror.model.Permisos
-import com.example.vecinoszaror.model.RolesUiState
+import com.example.vecinoszaror.model.uistate.RolesUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.RolPermisoRepository
 import kotlinx.coroutines.flow.MutableStateFlow

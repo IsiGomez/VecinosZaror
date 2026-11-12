@@ -19,12 +19,6 @@ data class RolConPermisos(
     val permisos: List<Permiso>
 )
 
-/** Después del login para decidir qué pantallas mostrar. */
-data class UsuarioConRol(
-    @Embedded val usuario: Usuario,
-    @Relation(parentColumn = "rolId", entityColumn = "id")
-    val rol: Rol
-)
 
 /** Reserva con los datos del vecino solicitante y del recinto. */
 data class ReservaConDetalle(

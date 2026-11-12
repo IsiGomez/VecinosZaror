@@ -34,7 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.vecinoszaror.model.DetalleReservaUiState
+import com.example.vecinoszaror.model.uistate.DetalleReservaUiState
 import com.example.vecinoszaror.model.EstadoPago
 import com.example.vecinoszaror.model.EstadoReserva
 import com.example.vecinoszaror.model.Permisos

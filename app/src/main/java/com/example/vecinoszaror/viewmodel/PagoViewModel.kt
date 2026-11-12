@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.EstadoReserva
 import com.example.vecinoszaror.model.MetodoPago
-import com.example.vecinoszaror.model.PagoErrores
-import com.example.vecinoszaror.model.PagoUiState
+import com.example.vecinoszaror.model.uistate.PagoErrores
+import com.example.vecinoszaror.model.uistate.PagoUiState
 import com.example.vecinoszaror.model.Permisos
-import com.example.vecinoszaror.model.ReservaPorPagar
+import com.example.vecinoszaror.model.uistate.ReservaPorPagar
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.FinanzasRepository
 import com.example.vecinoszaror.repository.ReservaRepository
@@ -145,7 +145,7 @@ class PagoViewModel(
                 observacion = datos.observacion.trim().takeIf { it.isNotEmpty() }
             )
             if (id == null) {
-                /** null: reserva no existe o ya no está vigente */
+                // null: reserva no existe o ya no está vigente
                 _estado.update {
                     it.copy(
                         enviando = false,
@@ -153,7 +153,7 @@ class PagoViewModel(
                     )
                 }
             } else {
-                reiniciar()
+                _estado.update { it.copy(enviando = false) }
                 _pagoRegistrado.send(Unit)
             }
         }

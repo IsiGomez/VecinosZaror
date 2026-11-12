@@ -1,4 +1,4 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
 
 /** Errores de validación del formulario de login (null = sin error). */
 data class LoginErrores(

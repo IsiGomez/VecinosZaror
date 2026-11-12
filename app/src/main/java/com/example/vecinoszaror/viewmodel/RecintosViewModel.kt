@@ -2,7 +2,7 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.RecintosUiState
+import com.example.vecinoszaror.model.uistate.RecintosUiState
 import com.example.vecinoszaror.repository.RecintoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

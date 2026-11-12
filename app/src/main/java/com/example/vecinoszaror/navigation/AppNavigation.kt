@@ -121,7 +121,7 @@ fun AppNavigation(
     val usarBarraLateral = tipoPantalla != TipoPantalla.COMPACTA
 
     val seleccionarOpcion: (OpcionMenu) -> Unit = { opcion ->
-        /** Al volver atrás, se regresa a la pantalla de inicio del rol */
+        // Al volver atrás, se regresa a la pantalla de inicio del rol
         navigationViewModel.irA(
             destino = opcion.pantalla,
             limpiarHasta = opciones.first().pantalla,
@@ -176,7 +176,12 @@ fun AppNavigation(
                         olvidoClaveViewModel = olvidoClaveViewModel,
                         tipoPantalla = tipoPantalla,
                         onLoginExitoso = {
-                            /** La pantalla de inicio es la primera sección que permite el rol */
+                            avisosViewModel.reiniciar()
+                            reservasViewModel.reiniciar()
+                            informesViewModel.reiniciar()
+                            finanzasViewModel.reiniciar()
+
+                            // La pantalla de inicio es la primera sección que permite el rol
                             val inicio = authViewModel.sesion.value
                                 ?.let { opcionesDeMenu(it.permisos).first().pantalla }
                                 ?: Screen.Avisos
@@ -189,10 +194,13 @@ fun AppNavigation(
                         ReservasScreen(
                             viewModel = reservasViewModel,
                             sesion = sesion,
-                            onSolicitarReserva = { navigationViewModel.irA(Screen.SolicitudReserva) },
+                            onSolicitarReserva = {
+                                solicitudReservaViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.SolicitudReserva)
+                            },
                             onVerDisponibilidad = { navigationViewModel.irA(Screen.Disponibilidad) },
                             onVerDetalle = { reservaId ->
-                                /** Primero se le dice al ViewModel qué reserva, luego se navega */
+                                // Primero se le dice al ViewModel qué reserva, luego se navega
                                 detalleReservaViewModel.cargar(reservaId, sesion)
                                 navigationViewModel.irA(Screen.DetalleReserva, evitarDuplicados = true)
                             }
@@ -230,8 +238,14 @@ fun AppNavigation(
                         FinanzasScreen(
                             viewModel = finanzasViewModel,
                             sesion = sesion,
-                            onRegistrarPago = { navigationViewModel.irA(Screen.RegistrarPago) },
-                            onRegistrarGasto = { navigationViewModel.irA(Screen.RegistrarGasto) }
+                            onRegistrarPago = {
+                                pagoViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.RegistrarPago)
+                            },
+                            onRegistrarGasto = {
+                                gastoViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.RegistrarGasto)
+                            }
                         )
                     }
                 }
@@ -258,7 +272,10 @@ fun AppNavigation(
                         InformesScreen(
                             viewModel = informesViewModel,
                             sesion = sesion,
-                            onGenerarInforme = { navigationViewModel.irA(Screen.GenerarInforme) }
+                            onGenerarInforme = {
+                                generarInformeViewModel.reiniciar()
+                                navigationViewModel.irA(Screen.GenerarInforme)
+                            }
                         )
                     }
                 }

@@ -18,9 +18,6 @@ interface NotificacionDao {
     @Query("SELECT * FROM notificacion WHERE usuarioId = :usuarioId ORDER BY fechaCreacion DESC")
     fun observarPorUsuario(usuarioId: Long): Flow<List<Notificacion>>
 
-    @Query("SELECT COUNT(*) FROM notificacion WHERE usuarioId = :usuarioId AND leida = 0")
-    fun observarNoLeidas(usuarioId: Long): Flow<Int>
-
     @Query("UPDATE notificacion SET leida = 1 WHERE id = :id")
     suspend fun marcarLeida(id: Long)
 

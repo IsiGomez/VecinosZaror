@@ -131,12 +131,11 @@ fun ReservasScreen(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    /** key: identifica cada tarjeta para que Compose no las redibuje */
+                    // key: identifica cada tarjeta para que Compose no las redibuje
                     items(estado.reservas, key = { it.reserva.id }) { detalle ->
                         val reserva = detalle.reserva
                         val puedeCancelar = sesion.puedeCancelar(reserva)
 
-                        /** Si el rol no puede hacer la acción se pasa null y el botón no aparece */
                         TarjetaReserva(
                             detalle = detalle,
                             mostrarSolicitante = estado.puedeVerTodas,

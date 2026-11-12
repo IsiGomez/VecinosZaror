@@ -3,7 +3,7 @@ package com.example.vecinoszaror.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.CategoriaGasto
-import com.example.vecinoszaror.model.FinanzasUiState
+import com.example.vecinoszaror.model.uistate.FinanzasUiState
 import com.example.vecinoszaror.model.Gasto
 import com.example.vecinoszaror.model.Pago
 import com.example.vecinoszaror.model.Permisos
@@ -42,6 +42,13 @@ class FinanzasViewModel(
         val recintoPorReserva: Map<Long, Recinto>
     )
 
+    /** Se llama al iniciar sesión */
+    fun reiniciar() {
+        tareaEscucha?.cancel()
+        sesionCargada = null
+        _estado.value = FinanzasUiState()
+    }
+
     /** Empieza a observar las finanzas y deja anotado qué acciones permite el rol. */
     fun cargar(sesion: SesionUsuario) {
         if (sesion == sesionCargada) return
@@ -54,7 +61,7 @@ class FinanzasViewModel(
         )
 
         tareaEscucha = viewModelScope.launch {
-            /** combine junta varios flujos: emite cada vez que cualquiera de ellos cambia */
+            // combine junta varios flujos: emite cada vez que cualquiera de ellos cambia
             combine(
                 finanzasRepository.observarPagos(),
                 finanzasRepository.observarGastos(),

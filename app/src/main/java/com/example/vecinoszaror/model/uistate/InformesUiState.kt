@@ -1,4 +1,6 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
+
+import com.example.vecinoszaror.model.InformeFinanciero
 
 /** Estado de la pantalla de informes. */
 data class InformesUiState(

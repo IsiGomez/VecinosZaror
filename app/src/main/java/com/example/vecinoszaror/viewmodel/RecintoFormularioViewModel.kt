@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.Recinto
-import com.example.vecinoszaror.model.RecintoFormularioErrores
-import com.example.vecinoszaror.model.RecintoFormularioUiState
+import com.example.vecinoszaror.model.uistate.RecintoFormularioErrores
+import com.example.vecinoszaror.model.uistate.RecintoFormularioUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.RecintoRepository
 import kotlinx.coroutines.flow.MutableStateFlow

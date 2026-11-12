@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.vecinoszaror.model.LoginUiState
+import com.example.vecinoszaror.model.uistate.LoginUiState
 import com.example.vecinoszaror.style.VecinosZarorTheme
 
 /** Una sola columna con logo arriba y formulario abajo */
@@ -45,7 +45,7 @@ fun LoginCompacto(
             contentAlignment = Alignment.Center
         ) {
             EncabezadoLogin(
-                tamanologo = 96.dp,
+                tamanoLogo = 96.dp,
                 colorTexto = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }

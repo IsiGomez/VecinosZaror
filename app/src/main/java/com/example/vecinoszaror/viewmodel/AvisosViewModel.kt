@@ -2,7 +2,7 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.AvisosUiState
+import com.example.vecinoszaror.model.uistate.AvisosUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.NotificacionRepository
 import kotlinx.coroutines.Job
@@ -25,6 +25,13 @@ class AvisosViewModel(
     // Sesión ya cargada: evita reiniciar la pantalla cada vez que se vuelve a ella
     private var sesionCargada: SesionUsuario? = null
     private var usuarioId: Long? = null
+
+    /** Se llama al iniciar sesión */
+    fun reiniciar() {
+        tareaEscucha?.cancel()
+        sesionCargada = null
+        _estado.value = AvisosUiState()
+    }
 
     /** Empieza a observar los avisos de este usuario. */
     fun cargar(sesion: SesionUsuario) {

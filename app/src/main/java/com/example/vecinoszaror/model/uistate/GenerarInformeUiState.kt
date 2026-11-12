@@ -1,4 +1,4 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
 
 /** Errores del formulario de informe (null = sin error). */
 data class GenerarInformeErrores(

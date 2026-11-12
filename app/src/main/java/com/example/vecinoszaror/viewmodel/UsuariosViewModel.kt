@@ -2,7 +2,7 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.UsuariosUiState
+import com.example.vecinoszaror.model.uistate.UsuariosUiState
 import com.example.vecinoszaror.repository.RolPermisoRepository
 import com.example.vecinoszaror.repository.UsuarioRepository
 import kotlinx.coroutines.flow.MutableStateFlow

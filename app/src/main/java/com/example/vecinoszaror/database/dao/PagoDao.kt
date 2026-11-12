@@ -21,9 +21,6 @@ interface PagoDao {
     @Query("SELECT * FROM pago WHERE reservaId = :reservaId ORDER BY fechaPago DESC")
     fun observarPorReserva(reservaId: Long): Flow<List<Pago>>
 
-    @Query("SELECT COALESCE(SUM(monto), 0) FROM pago WHERE reservaId = :reservaId")
-    suspend fun totalPagadoDeReserva(reservaId: Long): Long
-
     @Query("SELECT COALESCE(SUM(monto), 0) FROM pago WHERE fechaPago BETWEEN :desde AND :hasta")
     suspend fun totalIngresos(desde: Long, hasta: Long): Long
 

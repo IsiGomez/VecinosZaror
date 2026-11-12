@@ -2,7 +2,7 @@ package com.example.vecinoszaror.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vecinoszaror.model.DisponibilidadUiState
+import com.example.vecinoszaror.model.uistate.DisponibilidadUiState
 import com.example.vecinoszaror.repository.RecintoRepository
 import com.example.vecinoszaror.repository.ReservaRepository
 import com.example.vecinoszaror.util.combinarFechaYHora

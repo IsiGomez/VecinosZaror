@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.Permisos
 import com.example.vecinoszaror.model.Reserva
-import com.example.vecinoszaror.model.ReservasUiState
+import com.example.vecinoszaror.model.uistate.ReservasUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.repository.ReservaRepository
 import kotlinx.coroutines.Job
@@ -33,6 +33,13 @@ class ReservasViewModel (
 
     // Sesión ya cargada: evita reiniciar la pantalla cada vez que se vuelve a ella
     private var sesionCargada: SesionUsuario? = null
+
+    /** Se llama al iniciar sesión */
+    fun reiniciar() {
+        tareaEscucha?.cancel()
+        sesionCargada = null
+        _estado.value = ReservasUiState()
+    }
 
     /** Las reservas que corresponden a la sesión */
     fun cargar(sesion: SesionUsuario) {
@@ -81,7 +88,6 @@ class ReservasViewModel (
         viewModelScope.launch {
             val exito = reservaRepository.cancelar(
                 reservaId = reserva.id,
-                /** Solo se registra cuando cancela alguien distinto al vecino */
                 gestionadaPorId = if (esPropia) null else sesion.usuario.id,
                 observacion = observacion?.trim()?.takeIf { it.isNotEmpty() }
             )

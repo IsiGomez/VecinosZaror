@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.vecinoszaror.model.LoginUiState
+import com.example.vecinoszaror.model.uistate.LoginUiState
 import com.example.vecinoszaror.style.VecinosZarorTheme
 import com.example.vecinoszaror.ui.components.Tarjeta
 
@@ -41,7 +41,7 @@ fun LoginMediano(
                 modifier = Modifier.padding(32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                EncabezadoLogin(tamanologo = 88.dp)
+                EncabezadoLogin(tamanoLogo = 88.dp)
                 Spacer(modifier = Modifier.height(32.dp))
                 LoginFormulario(estado, onEmailChange, onClaveChange, onIngresar, onOlvideClave)
             }

@@ -21,7 +21,6 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +29,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vecinoszaror.model.Destinatario
-import com.example.vecinoszaror.model.EnviarAvisoUiState
+import com.example.vecinoszaror.model.uistate.EnviarAvisoUiState
 import com.example.vecinoszaror.model.SesionUsuario
 import com.example.vecinoszaror.ui.components.Tarjeta
 import com.example.vecinoszaror.ui.screens.reservas.TextoError
@@ -45,10 +44,6 @@ fun EnviarAvisoScreen(
     onVolver: () -> Unit
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
-
-    LaunchedEffect(Unit) {
-        viewModel.reiniciar()
-    }
 
     Column(
         modifier = Modifier
@@ -145,10 +140,7 @@ private fun Formulario(
         }
     }
     TextButton(
-        onClick = {
-            viewModel.reiniciar()
-            onVolver()
-        },
+        onClick = onVolver,
         enabled = !estado.enviando,
         modifier = Modifier.fillMaxWidth()
     ) {

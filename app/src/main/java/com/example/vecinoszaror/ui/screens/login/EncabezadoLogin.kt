@@ -20,7 +20,7 @@ import com.example.vecinoszaror.R
 
 @Composable
 fun EncabezadoLogin(
-    tamanologo: Dp = 72.dp,
+    tamanoLogo: Dp = 72.dp,
     colorTexto: Color = MaterialTheme.colorScheme.onSurface
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -28,7 +28,7 @@ fun EncabezadoLogin(
             painter = painterResource(R.drawable.logo),
             contentDescription = "Logo Junta de vecinos Población Zaror",
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimaryContainer),
-            modifier = Modifier.size(tamanologo)
+            modifier = Modifier.size(tamanoLogo)
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(

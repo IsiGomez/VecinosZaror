@@ -1,4 +1,4 @@
-package com.example.vecinoszaror.model
+package com.example.vecinoszaror.model.uistate
 
 /** Estado del formulario "¿Olvidaste tu contraseña?" del login. */
 data class OlvidoClaveUiState(

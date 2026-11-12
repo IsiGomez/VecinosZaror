@@ -26,7 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.vecinoszaror.model.LoginUiState
+import com.example.vecinoszaror.model.uistate.LoginUiState
 
 
 /** Compo y botón del login */
@@ -34,7 +34,7 @@ import com.example.vecinoszaror.model.LoginUiState
 fun LoginFormulario(
     estado: LoginUiState,
     onEmailChange: (String) -> Unit,
-    onCLaveChange: (String) -> Unit,
+    onClaveChange: (String) -> Unit,
     onIngresar: () -> Unit,
     onOlvideClave: () -> Unit,
     modifier: Modifier = Modifier
@@ -42,7 +42,6 @@ fun LoginFormulario(
     val focusManager = LocalFocusManager.current
 
     Column(modifier = modifier) {
-        /** Correo */
         OutlinedTextField(
             value = estado.email,
             onValueChange = onEmailChange,
@@ -61,10 +60,9 @@ fun LoginFormulario(
             modifier = Modifier.fillMaxWidth()
         )
 
-        /** Clave */
         OutlinedTextField(
             value = estado.clave,
-            onValueChange = onCLaveChange,
+            onValueChange = onClaveChange,
             label = { Text("Clave")},
             singleLine = true,
             enabled = !estado.cargando,
@@ -90,7 +88,6 @@ fun LoginFormulario(
             }
         }
 
-        /** Error que no es de un campo */
         estado.errores.general?.let { mensaje ->
             Text(
                 text = mensaje,
@@ -101,7 +98,6 @@ fun LoginFormulario(
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        /** Boton */
         Button(
             onClick = {
                 focusManager.clearFocus()
@@ -138,7 +134,7 @@ fun LoginFormulario(
             }
         }
 
-        /** Muestra a los usuarios de prueba */
+        // Muestra a los usuarios de prueba
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = "Usuarios de prueba (clave demo 1234): \n" +

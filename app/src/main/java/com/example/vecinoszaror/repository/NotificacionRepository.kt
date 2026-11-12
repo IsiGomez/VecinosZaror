@@ -10,8 +10,6 @@ class NotificacionRepository(private val notificacionDao: NotificacionDao) {
     fun observarPorUsuario(usuarioId: Long): Flow<List<Notificacion>> =
         notificacionDao.observarPorUsuario(usuarioId)
 
-    fun observarNoLeidas(usuarioId: Long): Flow<Int> = notificacionDao.observarNoLeidas(usuarioId)
-
     /** Crea un aviso para cada usuario de la lista y devuelve cuántos envió. */
     suspend fun enviarAviso(titulo: String, mensaje: String, usuarioIds: List<Long>): Int {
         val avisos = usuarioIds.map { usuarioId ->

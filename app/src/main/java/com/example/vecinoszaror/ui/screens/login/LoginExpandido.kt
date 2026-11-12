@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.vecinoszaror.model.LoginUiState
+import com.example.vecinoszaror.model.uistate.LoginUiState
 import com.example.vecinoszaror.style.VecinosZarorTheme
 
 /** panel con el logo a la izquierda y formulario a la derecha */
@@ -43,12 +43,11 @@ fun LoginExpandido(
             contentAlignment = Alignment.Center
         ) {
             EncabezadoLogin(
-                tamanologo = 120.dp,
+                tamanoLogo = 120.dp,
                 colorTexto = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
 
-        /** Formulario */
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -66,7 +65,7 @@ fun LoginExpandido(
             LoginFormulario(
                 estado = estado,
                 onEmailChange = onEmailChange,
-                onCLaveChange = onClaveChange,
+                onClaveChange = onClaveChange,
                 onIngresar = onIngresar,
                 onOlvideClave = onOlvideClave,
                 modifier = Modifier.fillMaxWidth().widthIn(max = 420.dp)
