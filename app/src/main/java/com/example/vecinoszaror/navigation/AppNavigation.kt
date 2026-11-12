@@ -27,6 +27,7 @@ import com.example.vecinoszaror.ui.screens.informes.GenerarInformeScreen
 import com.example.vecinoszaror.ui.screens.informes.InformesScreen
 import com.example.vecinoszaror.ui.screens.login.LoginScreen
 import com.example.vecinoszaror.ui.screens.perfil.CambiarClaveScreen
+import com.example.vecinoszaror.ui.screens.perfil.EditarPerfilScreen
 import com.example.vecinoszaror.ui.screens.perfil.PerfilScreen
 import com.example.vecinoszaror.ui.screens.reservas.DetalleReservaScreen
 import com.example.vecinoszaror.ui.screens.reservas.DisponibilidadScreen
@@ -39,6 +40,7 @@ import com.example.vecinoszaror.viewmodel.AvisosViewModel
 import com.example.vecinoszaror.viewmodel.CambiarClaveViewModel
 import com.example.vecinoszaror.viewmodel.DetalleReservaViewModel
 import com.example.vecinoszaror.viewmodel.DisponibilidadViewModel
+import com.example.vecinoszaror.viewmodel.EditarPerfilViewModel
 import com.example.vecinoszaror.viewmodel.EnviarAvisoViewModel
 import com.example.vecinoszaror.viewmodel.FinanzasViewModel
 import com.example.vecinoszaror.viewmodel.GastoViewModel
@@ -81,6 +83,7 @@ fun AppNavigation(
     rolesViewModel: RolesViewModel,
     cambiarClaveViewModel: CambiarClaveViewModel,
     olvidoClaveViewModel: OlvidoClaveViewModel,
+    editarPerfilViewModel: EditarPerfilViewModel,
     tipoPantalla: TipoPantalla
 ) {
     val navController = rememberNavController()
@@ -293,10 +296,24 @@ fun AppNavigation(
                     if (sesion != null) {
                         PerfilScreen(
                             sesion = sesion,
+                            onEditar = {
+                                editarPerfilViewModel.cargar(sesion)
+                                navigationViewModel.irA(Screen.EditarPerfil, evitarDuplicados = true)
+                            },
                             onCambiarClave = {
                                 cambiarClaveViewModel.reiniciar()
                                 navigationViewModel.irA(Screen.CambiarClave, evitarDuplicados = true)
                             },
+                            onVolver = { navigationViewModel.volver() }
+                        )
+                    }
+                }
+                composable(Screen.EditarPerfil.route) {
+                    if (sesion != null) {
+                        EditarPerfilScreen(
+                            viewModel = editarPerfilViewModel,
+                            sesion = sesion,
+                            onActualizado = authViewModel::actualizarUsuario,
                             onVolver = { navigationViewModel.volver() }
                         )
                     }

@@ -70,6 +70,12 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
         }
     }
 
+    /** Indica si la [clave] coincide con la guardada en la base para ese usuario. */
+    suspend fun claveCorrecta(usuarioId: Long, clave: String): Boolean {
+        val usuario = usuarioDao.obtenerPorId(usuarioId) ?: return false
+        return usuario.claveHash == hashClave(clave)
+    }
+
     /**
      * Cambia la clave de un usuario si [claveActual] es la correcta.
      * Devuelve false si la clave actual no coincide.

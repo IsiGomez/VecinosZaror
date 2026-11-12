@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -31,6 +32,7 @@ import com.example.vecinoszaror.ui.utils.formatearFecha
 @Composable
 fun PerfilScreen(
     sesion: SesionUsuario,
+    onEditar: () -> Unit,
     onCambiarClave: () -> Unit,
     onVolver: () -> Unit
 ) {
@@ -96,6 +98,9 @@ fun PerfilScreen(
                 }
             }
 
+            Button(onClick = onEditar, modifier = Modifier.fillMaxWidth()) {
+                Text("Editar perfil")
+            }
             OutlinedButton(onClick = onCambiarClave, modifier = Modifier.fillMaxWidth()) {
                 Text("Cambiar contraseña")
             }
