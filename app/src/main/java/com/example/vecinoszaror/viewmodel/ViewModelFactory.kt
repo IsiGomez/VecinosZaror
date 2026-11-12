@@ -39,6 +39,9 @@ class ViewModelFactory(private val app: VecinosZarorApp) : ViewModelProvider.Fac
         modelClass.isAssignableFrom(AvisosViewModel::class.java) ->
             AvisosViewModel(app.notificacionRepository) as T
 
+        modelClass.isAssignableFrom(EditarPerfilViewModel::class.java) ->
+            EditarPerfilViewModel(app.usuarioRepository) as T
+
         modelClass.isAssignableFrom(OlvidoClaveViewModel::class.java) ->
             OlvidoClaveViewModel(app.usuarioRepository, app.notificacionRepository) as T
 

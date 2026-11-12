@@ -70,12 +70,6 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
         }
     }
 
-    /** Indica si la [clave] coincide con la guardada en la base para ese usuario. */
-    suspend fun claveCorrecta(usuarioId: Long, clave: String): Boolean {
-        val usuario = usuarioDao.obtenerPorId(usuarioId) ?: return false
-        return usuario.claveHash == hashClave(clave)
-    }
-
     /**
      * Cambia la clave de un usuario si [claveActual] es la correcta.
      * Devuelve false si la clave actual no coincide.
@@ -85,6 +79,21 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
         if (usuario.claveHash != hashClave(claveActual)) return false
         usuarioDao.actualizar(usuario.copy(claveHash = hashClave(claveNueva)))
         return true
+    }
+
+    /**
+     * Guarda los datos personales de un usuario (no toca correo, clave, rol ni estado).
+     * Devuelve el usuario ya actualizado, o null si no existe.
+     */
+    suspend fun actualizarPerfil(usuarioId: Long, nombre: String, apellido: String, telefono: String?): Usuario? {
+        val usuario = usuarioDao.obtenerPorId(usuarioId) ?: return null
+        val actualizado = usuario.copy(
+            nombre = nombre.trim(),
+            apellido = apellido.trim(),
+            telefono = telefono?.trim()?.takeIf { it.isNotEmpty() }
+        )
+        usuarioDao.actualizar(actualizado)
+        return actualizado
     }
 
     private fun hashClave(clave: String): String =

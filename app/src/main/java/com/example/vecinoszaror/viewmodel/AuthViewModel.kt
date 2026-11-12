@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vecinoszaror.model.LoginUiState
 import com.example.vecinoszaror.model.SesionUsuario
+import com.example.vecinoszaror.model.Usuario
 import com.example.vecinoszaror.repository.RolPermisoRepository
 import com.example.vecinoszaror.repository.UsuarioRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,6 +57,11 @@ class AuthViewModel(
             )
             _estado.value = LoginUiState() // limpia el formulario
         }
+    }
+
+    /** Cambia los datos del usuario en la sesión (nombre / teléfono) sin cerrarla. */
+    fun actualizarUsuario(usuario: Usuario) {
+        _sesion.update { it?.copy(usuario = usuario) }
     }
 
     fun cerrarSesion() {
