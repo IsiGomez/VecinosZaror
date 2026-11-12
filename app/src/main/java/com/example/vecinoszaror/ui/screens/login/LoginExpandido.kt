@@ -48,7 +48,6 @@ fun LoginExpandido(
             )
         }
 
-        /** Formulario */
         Column(
             modifier = Modifier
                 .weight(1f)

@@ -145,7 +145,7 @@ class PagoViewModel(
                 observacion = datos.observacion.trim().takeIf { it.isNotEmpty() }
             )
             if (id == null) {
-                /** null: reserva no existe o ya no está vigente */
+                // null: reserva no existe o ya no está vigente
                 _estado.update {
                     it.copy(
                         enviando = false,

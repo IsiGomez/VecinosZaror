@@ -121,7 +121,7 @@ fun AppNavigation(
     val usarBarraLateral = tipoPantalla != TipoPantalla.COMPACTA
 
     val seleccionarOpcion: (OpcionMenu) -> Unit = { opcion ->
-        /** Al volver atrás, se regresa a la pantalla de inicio del rol */
+        // Al volver atrás, se regresa a la pantalla de inicio del rol
         navigationViewModel.irA(
             destino = opcion.pantalla,
             limpiarHasta = opciones.first().pantalla,
@@ -181,7 +181,7 @@ fun AppNavigation(
                             informesViewModel.reiniciar()
                             finanzasViewModel.reiniciar()
 
-                            /** La pantalla de inicio es la primera sección que permite el rol */
+                            // La pantalla de inicio es la primera sección que permite el rol
                             val inicio = authViewModel.sesion.value
                                 ?.let { opcionesDeMenu(it.permisos).first().pantalla }
                                 ?: Screen.Avisos
@@ -200,7 +200,7 @@ fun AppNavigation(
                             },
                             onVerDisponibilidad = { navigationViewModel.irA(Screen.Disponibilidad) },
                             onVerDetalle = { reservaId ->
-                                /** Primero se le dice al ViewModel qué reserva, luego se navega */
+                                // Primero se le dice al ViewModel qué reserva, luego se navega
                                 detalleReservaViewModel.cargar(reservaId, sesion)
                                 navigationViewModel.irA(Screen.DetalleReserva, evitarDuplicados = true)
                             }

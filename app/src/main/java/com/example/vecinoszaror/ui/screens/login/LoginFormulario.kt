@@ -42,7 +42,6 @@ fun LoginFormulario(
     val focusManager = LocalFocusManager.current
 
     Column(modifier = modifier) {
-        /** Correo */
         OutlinedTextField(
             value = estado.email,
             onValueChange = onEmailChange,
@@ -61,7 +60,6 @@ fun LoginFormulario(
             modifier = Modifier.fillMaxWidth()
         )
 
-        /** Clave */
         OutlinedTextField(
             value = estado.clave,
             onValueChange = onClaveChange,
@@ -90,7 +88,6 @@ fun LoginFormulario(
             }
         }
 
-        /** Error que no es de un campo */
         estado.errores.general?.let { mensaje ->
             Text(
                 text = mensaje,
@@ -101,7 +98,6 @@ fun LoginFormulario(
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        /** Boton */
         Button(
             onClick = {
                 focusManager.clearFocus()
@@ -138,7 +134,7 @@ fun LoginFormulario(
             }
         }
 
-        /** Muestra a los usuarios de prueba */
+        // Muestra a los usuarios de prueba
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = "Usuarios de prueba (clave demo 1234): \n" +

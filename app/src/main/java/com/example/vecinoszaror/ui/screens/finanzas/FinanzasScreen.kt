@@ -109,7 +109,7 @@ fun FinanzasScreen(
                     if (estado.pagosVisibles.isEmpty()) {
                         item { TextoVacio("Aún no hay pagos registrados.") }
                     } else {
-                        /** key: identifica cada tarjeta para que Compose no las redibuje */
+                        // key: identifica cada tarjeta para que Compose no las redibuje
                         items(estado.pagosVisibles, key = { "pago-${it.id}" }) { pago ->
                             Column(modifier = Modifier.animateItem()) {
                                 FilaPago(pago, nombreRecinto = estado.recintoPorReserva[pago.reservaId]?.nombre)

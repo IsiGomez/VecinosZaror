@@ -89,7 +89,6 @@ class ReservasViewModel (
         viewModelScope.launch {
             val exito = reservaRepository.cancelar(
                 reservaId = reserva.id,
-                /** Solo se registra cuando cancela alguien distinto al vecino */
                 gestionadaPorId = if (esPropia) null else sesion.usuario.id,
                 observacion = observacion?.trim()?.takeIf { it.isNotEmpty() }
             )

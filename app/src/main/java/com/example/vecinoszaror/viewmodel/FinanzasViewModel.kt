@@ -62,7 +62,7 @@ class FinanzasViewModel(
         )
 
         tareaEscucha = viewModelScope.launch {
-            /** combine junta varios flujos: emite cada vez que cualquiera de ellos cambia */
+            // combine junta varios flujos: emite cada vez que cualquiera de ellos cambia
             combine(
                 finanzasRepository.observarPagos(),
                 finanzasRepository.observarGastos(),
